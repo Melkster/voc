@@ -29,8 +29,8 @@ public class math extends org.python.types.Module {
     public static org.python.Object exp(org.python.Object x)
         throws org.python.exceptions.OverflowError {
         // The float type uses double internally, so we can simply use that
-        double xValue = ((org.python.types.Float) x.__float__()).value;
-        double result = Math.exp(xValue);
+        double number = ((org.python.types.Float) x.__float__()).value;
+        double result = Math.exp(number);
         if (result > pythonMaxFloat) {
             throw new org.python.exceptions.OverflowError("math range error");
         } else {
