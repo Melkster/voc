@@ -31,5 +31,4 @@ public class math extends org.python.types.Module {
 
         return new org.python.types.Float(Math.sqrt(d));
     }
-
 }
