@@ -1,8 +1,7 @@
 package python;
 
 @org.python.Module(
-        __doc__ =
-                "This module provides various functions to math." 
+    __doc__ = "This module provides various functions to math." 
 )
 public class math extends org.python.types.Module {
     public math() {
@@ -24,7 +23,7 @@ public class math extends org.python.types.Module {
     public static double pythonMaxFloat = 1.7976931348623157e+308;
 
     @org.python.Method(
-            __doc__ = "exp",
+            __doc__ = "exp(x) = e^x",
             args = {"x"}
     )
     public static org.python.Object exp(org.python.Object x)
@@ -37,5 +36,17 @@ public class math extends org.python.types.Module {
         } else {
             return new org.python.types.Float(result);
         }
+    }
+
+    @org.python.Method(
+            __doc__ = "sqrt(number) -> calculates the square root of the number `number`",
+            args = {"number"}
+    )
+    public static org.python.Object sqrt(org.python.Object number) {
+        double d = ((org.python.types.Float) number.__float__()).value;
+
+        if (d < 0) throw new org.python.exceptions.ValueError("math domain error");
+
+        return new org.python.types.Float(Math.sqrt(d));
     }
 }
