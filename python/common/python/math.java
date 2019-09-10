@@ -21,7 +21,7 @@ public class math extends org.python.types.Module {
     public static org.python.Object __spec__ = org.python.types.NoneType.NONE;  // TODO
 
     @org.python.Method(
-            __doc__ = "",
+            __doc__ = "sqrt(number) -> calculates the square root of the number `number`",
             args = {"number"}
     )
     public static org.python.Object sqrt(org.python.Object number) {
