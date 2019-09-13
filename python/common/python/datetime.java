@@ -1,15 +1,19 @@
 package python;
 
-@org.python.Module(__doc__ = "This module provides various functions to datetime.")
+@org.python.Module(__doc__ = "The datetime module supplies classes for manipulating dates and times in both simple and complex ways.\n")
+
 public class datetime extends org.python.types.Module {
     public datetime() {
         super();
     }
 
     static {
+        date = org.python.types.Type.pythonType(org.python.stdlib.datetime.date.class);
         timedelta = org.python.types.Type.pythonType(org.python.stdlib.datetime.timedelta.class);
     }
 
+    @org.python.Attribute()
+    public static org.python.Object date;
     @org.python.Attribute()
     public static org.python.Object timedelta;
 
@@ -23,5 +27,4 @@ public class datetime extends org.python.types.Module {
     public static org.python.Object __package__ = new org.python.types.Str("");
     @org.python.Attribute
     public static org.python.Object __spec__ = org.python.types.NoneType.NONE; // TODO
-
 }
