@@ -2,10 +2,11 @@ from ..utils import TranspileTestCase
 
 
 class DatetimeModuleTests(TranspileTestCase):
-    def test_timedelta_construction(self):
+    def test_timedelta_default_constructor(self):
         self.assertCodeExecution("""
             import datetime
-            datetime.timedelta()
+            delta = datetime.timedelta()
+            print(delta.total_seconds())
         """)
 
 
