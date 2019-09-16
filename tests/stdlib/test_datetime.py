@@ -19,7 +19,10 @@ class DatetimeModuleTests(TranspileTestCase):
             print(datetime.timedelta(-999999999).total_seconds())
             print(datetime.timedelta(0.1).total_seconds())
             print(datetime.timedelta(-0.1).total_seconds())
-            
+            print(datetime.timedelta(1.9).total_seconds())
+            print(datetime.timedelta(-2.9).total_seconds())
+            print(datetime.timedelta(0.00001).total_seconds())
+            print(datetime.timedelta(-0.0001).total_seconds())
         """)
 
 

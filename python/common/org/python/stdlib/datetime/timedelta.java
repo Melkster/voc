@@ -24,7 +24,10 @@ public class timedelta extends org.python.types.Object {
             if (args[0].typeName().equals("float")) {
                 double fDays = getFloatvalue(args[0]);
                 double dayDiff = fDays - days;
-                seconds += dayDiff * 24 * 60 * 60;
+                double fSeconds = dayDiff * 24 * 60 * 60;
+                seconds += Math.round(fSeconds * 10000000) / 10000000; // Round to 1/10ths of microsecond
+                microseconds += (long) ((double)(fSeconds - seconds) * 1000000);
+                
             }
         }
         this.days = org.python.types.Int.getInt(days);
@@ -40,7 +43,8 @@ public class timedelta extends org.python.types.Object {
         args = {}
     )
     public org.python.Object total_seconds() {
-        return new org.python.types.Float((double) days.value*24*60*60 + (double) seconds.value);
+        return new org.python.types.Float((double) days.value*24*60*60 + (double) seconds.value + 
+            ((double) microseconds.value / 1000000));
     }
 
     private long getIntValue(org.python.Object obj) {
