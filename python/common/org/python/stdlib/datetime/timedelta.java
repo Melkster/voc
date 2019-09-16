@@ -1,6 +1,5 @@
 package org.python.stdlib.datetime;
 
-
 public class timedelta extends org.python.types.Object {
 
 
@@ -16,23 +15,58 @@ public class timedelta extends org.python.types.Object {
         default_args = {"iterable"}
     )
     public timedelta(org.python.Object[] args, java.util.Map<java.lang.String, org.python.Object> kwargs) {
-        long days = 0;
-        long seconds = 0;
-        long microseconds = 0;
-        if (args.length >= 1 && args[0] != null) {
-            days += getIntValue(args[0]);
-            if (args[0].typeName().equals("float")) {
-                double fDays = getFloatvalue(args[0]);
-                double dayDiff = fDays - days;
-                double fSeconds = dayDiff * 24 * 60 * 60;
-                seconds += Math.round(fSeconds * 10000000) / 10000000; // Round to 1/10ths of microsecond
-                microseconds += (long) ((double)(fSeconds - seconds) * 1000000);
-                
-            }
+        double days = 0;
+        double seconds = 0;
+        double microseconds = 0;
+        if (args.length >= 1 && args[0] != null) { // days
+            days += getFloatvalue(args[0]);
         }
-        this.days = org.python.types.Int.getInt(days);
-        this.seconds = org.python.types.Int.getInt(seconds);
-        this.microseconds = org.python.types.Int.getInt(microseconds);
+        if (args.length >= 2 && args[1] != null) { // seconds
+            seconds += getFloatvalue(args[1]);
+        }
+        if (args.length >= 3 && args[2] != null) { // micros
+            microseconds += getFloatvalue(args[2]);
+        }
+        if (args.length >= 4 && args[3] != null) { // millis
+            microseconds += getFloatvalue(args[3]) * 1000;
+        }
+        if (args.length >= 5 && args[4] != null) { // minutes
+            seconds += getFloatvalue(args[4]) * 60;
+        }
+        if (args.length >= 6 && args[5] != null) { // hours 
+            seconds += getFloatvalue(args[5]) * 60 * 60;
+        }
+        if (args.length >= 7 && args[6] != null) { // weeks
+            days += getFloatvalue(args[6]) * 7;
+        }
+        
+        // convert decimals to smaller units e.g. 1.5 days => 1 days and 43200 seconds
+        seconds += (days % 1) * 60 * 60 * 24;
+        // Note: Math.floor() is no good because of issues with negative arguments
+        days -= days % 1;
+
+        microseconds += (seconds % 1) * 1e6;
+        seconds -= seconds % 1;
+
+        // convert many microseconds to seconds 
+        seconds += Math.floor(microseconds / 1e6);
+        microseconds -= Math.floor(microseconds / 1e6) * 1e6;
+        // convert many seconds to hours 
+        days += Math.floor(seconds / (24*60*60));
+        seconds -= Math.floor(seconds / (24*60*60)) * (24*60*60);
+
+        // round the answer to whole microseconds
+        microseconds = Math.round(microseconds);
+
+        /*
+         * double dayDiff = days - (long) days; double diffSeconds = dayDiff * 24 * 60 *
+         * 60; seconds += Math.round(diffSeconds * 10000000) / 10000000; // Round to
+         * 1/10ths of microsecond //microseconds += (long) ((double) (diffSeconds -
+         * seconds) * 1000000);
+         */        
+        this.days = org.python.types.Int.getInt((long)days);
+        this.seconds = org.python.types.Int.getInt((long)seconds);
+        this.microseconds = org.python.types.Int.getInt((long)microseconds);
     }
 
     @org.python.Method(
@@ -51,7 +85,13 @@ public class timedelta extends org.python.types.Object {
             return ((org.python.types.Int) obj.__int__()).value;
     }
     private double getFloatvalue(org.python.Object obj) {
+        if (obj.typeName().equals("int")) {
+            // if obj is really an integer -> cast to double in order to bypass __float__() function wich will cast 
+            // the value into a 32-bit float.
+            return (double)getIntValue(obj);
+        } else {
             return ((org.python.types.Float) obj.__float__()).value;
+        }
     }
 }
 

@@ -25,5 +25,4 @@ class DatetimeModuleTests(TranspileTestCase):
             print(datetime.timedelta(-0.0001).total_seconds())
         """)
 
-
 # TODO: Add Kwargs tests
