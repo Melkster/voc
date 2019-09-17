@@ -53,11 +53,11 @@ public class timedelta extends org.python.types.Object {
         microseconds = Math.round(microseconds);
 
         // convert many microseconds to seconds 
-        seconds += Math.floor(microseconds / 1e6);
-        microseconds -= Math.floor(microseconds / 1e6) * 1e6;
+        seconds += (long)(microseconds / 1e6);
+        microseconds -= ((long)(microseconds / 1e6)) * 1e6;
         // convert many seconds to hours 
-        days += Math.floor(seconds / (24*60*60));
-        seconds -= Math.floor(seconds / (24*60*60)) * (24*60*60);
+        days += (long)(seconds / (24*60*60));
+        seconds -= (long)(seconds / (24*60*60)) * (24*60*60);
 
 
         /*
