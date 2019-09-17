@@ -62,7 +62,7 @@ public class timedelta extends org.python.types.Object {
         seconds -= (long)(seconds / (24*60*60)) * (24*60*60);
 
 
-        if (days > MAX_DAYS) {
+        if (Math.abs(days) > MAX_DAYS) {
             throw new org.python.exceptions.OverflowError(String.format("days=%d; must have magnitude <= %d", (long)days, MAX_DAYS));
         }
 
