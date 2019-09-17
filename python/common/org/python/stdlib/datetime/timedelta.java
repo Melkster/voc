@@ -4,16 +4,23 @@ import java.math.BigDecimal;
 
 public class timedelta extends org.python.types.Object {
 
+    private static final long MAX_DAYS = 999999999;
+    private static final long MAX_SECONDS = 60 * 60 * 24 - 1;
+    private static final long MAX_MICROS = 1000000 - 1;
+
+    @org.python.Attribute
+    public final static org.python.Object min = new timedelta(-MAX_DAYS, 0, 0);
+    @org.python.Attribute
+    public final static org.python.Object max = new timedelta(MAX_DAYS, MAX_SECONDS, MAX_MICROS);
+    @org.python.Attribute
+    public final static org.python.Object resolution = new timedelta(0, 0, 1);
+
     @org.python.Attribute
     public org.python.types.Int days;
     @org.python.Attribute
     public org.python.types.Int seconds;
     @org.python.Attribute
     public org.python.types.Int microseconds;
-
-    private final long MAX_DAYS = 999999999;
-    private final long MAX_SECONDS = 60 * 60 * 24 - 1;
-    private final long MAX_MICROS = 1000000 - 1;
 
     private double getArg(int position, String keyword, org.python.Object[] args,
             java.util.Map<java.lang.String, org.python.Object> kwargs) {
@@ -30,6 +37,12 @@ public class timedelta extends org.python.types.Object {
         } else {
             return 0;
         }
+    }
+
+    private timedelta(long days, long seconds, long microseconds) {
+        this.days = org.python.types.Int.getInt(days);
+        this.seconds = org.python.types.Int.getInt(seconds);
+        this.microseconds = org.python.types.Int.getInt(microseconds);
     }
 
     @org.python.Method(__doc__ = "Creates empty timedelta", default_args = { "iterable" }, kwargs = "kwargs")
