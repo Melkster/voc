@@ -151,5 +151,31 @@ class DatetimeModuleTests(TranspileTestCase):
             print(datetime.timedelta(999999999).microseconds)
         """)
 
+    def test_timedelta_kwargs(self):
+        self.assertCodeExecution("""
+            import datetime
+            print(datetime.timedelta(days=5).days)
+            print(datetime.timedelta(days=5).seconds)
+            print(datetime.timedelta(days=5).microseconds)
+            print(datetime.timedelta(seconds=5).days)
+            print(datetime.timedelta(seconds=5).seconds)
+            print(datetime.timedelta(seconds=5).microseconds)
+            print(datetime.timedelta(-1, seconds=5).days)
+            print(datetime.timedelta(-1, seconds=5).seconds)
+            print(datetime.timedelta(-1, seconds=5).microseconds)
+            print(datetime.timedelta(seconds=5, days=5).days)
+            print(datetime.timedelta(seconds=5, days=5).seconds)
+            print(datetime.timedelta(seconds=5, days=5).microseconds)
+            print(datetime.timedelta(1, 1, 1, weeks=1).days)
+            print(datetime.timedelta(1, 1, 1, weeks=1).seconds)
+            print(datetime.timedelta(1, 1, 1, weeks=1).microseconds)
+
+            try:
+                datetime.timedelta(1, 1, 1, days=1)
+            except TypeError as e:
+                print(e)
+        """)
+
+
 
 # TODO: Add Kwargs tests
