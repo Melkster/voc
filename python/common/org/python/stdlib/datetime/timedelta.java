@@ -12,7 +12,8 @@ public class timedelta extends org.python.types.Object {
 
     @org.python.Method(
         __doc__ = "Creates empty timedelta",
-        default_args = {"iterable"}
+        default_args = {"iterable"},
+        kwargs = "kwargs"
     )
     public timedelta(org.python.Object[] args, java.util.Map<java.lang.String, org.python.Object> kwargs) {
         double days = 0;
