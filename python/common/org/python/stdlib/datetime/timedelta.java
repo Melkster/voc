@@ -48,6 +48,9 @@ public class timedelta extends org.python.types.Object {
         microseconds += (seconds % 1) * 1e6;
         seconds -= seconds % 1;
 
+        // round the answer to whole microseconds
+        microseconds = Math.round(microseconds);
+
         // convert many microseconds to seconds 
         seconds += Math.floor(microseconds / 1e6);
         microseconds -= Math.floor(microseconds / 1e6) * 1e6;
@@ -55,8 +58,6 @@ public class timedelta extends org.python.types.Object {
         days += Math.floor(seconds / (24*60*60));
         seconds -= Math.floor(seconds / (24*60*60)) * (24*60*60);
 
-        // round the answer to whole microseconds
-        microseconds = Math.round(microseconds);
 
         /*
          * double dayDiff = days - (long) days; double diffSeconds = dayDiff * 24 * 60 *
