@@ -180,17 +180,13 @@ class DatetimeModuleTests(TranspileTestCase):
         self.assertCodeExecution("""
             import datetime
             obj = datetime.timedelta()
-            print(obj.min.days);
-            print(obj.max.days);
-            print(obj.resolution.days);
-            print(obj.min.seconds);
-            print(obj.max.seconds);
-            print(obj.resolution.seconds);
-            print(obj.min.microseconds);
-            print(obj.max.microseconds);
-            print(obj.resolution.microseconds);
+            print(obj.min.days)
+            print(obj.max.days)
+            print(obj.resolution.days)
+            print(obj.min.seconds)
+            print(obj.max.seconds)
+            print(obj.resolution.seconds)
+            print(obj.min.microseconds)
+            print(obj.max.microseconds)
+            print(obj.resolution.microseconds)
         """);
-
-
-
-# TODO: Add Kwargs tests
