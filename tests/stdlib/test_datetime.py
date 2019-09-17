@@ -128,4 +128,28 @@ class DatetimeModuleTests(TranspileTestCase):
             print(datetime.timedelta(0, 0, 0, 0, 0, 0, -0.9).total_seconds())
         """)
 
+    def test_timedelta_instance_attributes(self):
+        self.assertCodeExecution("""
+            import datetime
+            print(datetime.timedelta().days)
+            print(datetime.timedelta().seconds)
+            print(datetime.timedelta().microseconds)
+            print(datetime.timedelta(-1, -1, -1).days)
+            print(datetime.timedelta(-1, -1, -1).seconds)
+            print(datetime.timedelta(-1, -1, -1).microseconds)
+            print(datetime.timedelta(1.12345).days)
+            print(datetime.timedelta(1.12345).seconds)
+            print(datetime.timedelta(1.12345).microseconds)
+            print(datetime.timedelta(999.12345).days)
+            print(datetime.timedelta(999.12345).seconds)
+            print(datetime.timedelta(999.12345).microseconds)
+            print(datetime.timedelta(0, -0.1).days)
+            print(datetime.timedelta(0, -0.1).seconds)
+            print(datetime.timedelta(0, -0.1).microseconds)
+            print(datetime.timedelta(999999999).days)
+            print(datetime.timedelta(999999999).seconds)
+            print(datetime.timedelta(999999999).microseconds)
+        """)
+
+
 # TODO: Add Kwargs tests

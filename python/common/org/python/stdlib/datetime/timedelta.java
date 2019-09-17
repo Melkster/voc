@@ -1,5 +1,7 @@
 package org.python.stdlib.datetime;
 
+import java.math.BigDecimal;   
+
 public class timedelta extends org.python.types.Object {
 
 
@@ -11,6 +13,8 @@ public class timedelta extends org.python.types.Object {
     public org.python.types.Int microseconds;
 
     private final long MAX_DAYS = 999999999;
+    private final long MAX_SECONDS = 60 * 60 * 24 - 1;
+    private final long MAX_MICROS = 1000000 - 1;
 
     @org.python.Method(
         __doc__ = "Creates empty timedelta",
@@ -42,7 +46,8 @@ public class timedelta extends org.python.types.Object {
         if (args.length >= 7 && args[6] != null) { // weeks
             days += getFloatvalue(args[6]) * 7;
         }
-        
+
+
         // convert decimals to smaller units e.g. 1.5 days => 1 days and 43200 seconds
         seconds += (days % 1) * 60 * 60 * 24;
         // Note: Math.floor() is no good because of issues with negative arguments
@@ -57,9 +62,25 @@ public class timedelta extends org.python.types.Object {
         // convert many microseconds to seconds 
         seconds += (long)(microseconds / 1e6);
         microseconds -= ((long)(microseconds / 1e6)) * 1e6;
-        // convert many seconds to hours 
+        // convert many seconds to days 
         days += (long)(seconds / (24*60*60));
         seconds -= (long)(seconds / (24*60*60)) * (24*60*60);
+
+
+        if (microseconds < 0) {
+            days -= 1;
+            seconds += MAX_SECONDS;
+            microseconds += MAX_MICROS + 1;
+
+            // IF we overflow MAX_SECONDS again
+            days += (long)(seconds / (24*60*60));
+            seconds -= (long)(seconds / (24*60*60)) * (24*60*60);
+        }
+        if (seconds < 0) {
+            days -= 1;
+            seconds += MAX_SECONDS + 1;
+        }
+        
 
 
         if (Math.abs(days) > MAX_DAYS) {
@@ -79,8 +100,12 @@ public class timedelta extends org.python.types.Object {
         args = {}
     )
     public org.python.Object total_seconds() {
-        return new org.python.types.Float((double) days.value*24*60*60 + (double) seconds.value + 
-            ((double) microseconds.value / 1000000));
+        // Regular double precision isn't enough! We need the big stuff
+        BigDecimal daysInSeconds = BigDecimal.valueOf(days.value).multiply(BigDecimal.valueOf(24 * 60 * 60));
+        BigDecimal bigSeconds = BigDecimal.valueOf(seconds.value);
+        BigDecimal microsecondsInSeconds = BigDecimal.valueOf(microseconds.value).divide(BigDecimal.valueOf(1e6));
+        BigDecimal total = daysInSeconds.add(bigSeconds).add(microsecondsInSeconds);
+        return new org.python.types.Float(total.doubleValue());
     }
 
     private long getIntValue(org.python.Object obj) {
