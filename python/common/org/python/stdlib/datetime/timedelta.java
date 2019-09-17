@@ -10,6 +10,8 @@ public class timedelta extends org.python.types.Object {
     @org.python.Attribute
     public org.python.types.Int microseconds;
 
+    private final long MAX_DAYS = 999999999;
+
     @org.python.Method(
         __doc__ = "Creates empty timedelta",
         default_args = {"iterable"},
@@ -60,12 +62,10 @@ public class timedelta extends org.python.types.Object {
         seconds -= (long)(seconds / (24*60*60)) * (24*60*60);
 
 
-        /*
-         * double dayDiff = days - (long) days; double diffSeconds = dayDiff * 24 * 60 *
-         * 60; seconds += Math.round(diffSeconds * 10000000) / 10000000; // Round to
-         * 1/10ths of microsecond //microseconds += (long) ((double) (diffSeconds -
-         * seconds) * 1000000);
-         */        
+        if (days > MAX_DAYS) {
+            throw new org.python.exceptions.OverflowError(String.format("days=%d; must have magnitude <= %d", (long)days, MAX_DAYS));
+        }
+
         this.days = org.python.types.Int.getInt((long)days);
         this.seconds = org.python.types.Int.getInt((long)seconds);
         this.microseconds = org.python.types.Int.getInt((long)microseconds);
