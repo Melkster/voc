@@ -221,3 +221,26 @@ class DatetimeModuleTests(TranspileTestCase):
             print((c*0.75).total_seconds()) # Should be 2 microseconds because of round-half-to-even
             print((c*0.25).total_seconds()) # Should be 0 microseconds because of round-half-to-even
         """)
+
+    def test_timedelta_addition(self):
+        self.assertCodeExecution("""
+            import datetime
+            print((datetime.timedelta(1) + datetime.timedelta(0)).total_seconds())
+            print((datetime.timedelta(1) + datetime.timedelta(-1)).total_seconds())
+            print((datetime.timedelta(1) + datetime.timedelta(0, 0, 1)).total_seconds())
+            print((datetime.timedelta(1) + datetime.timedelta(0, 0, -1)).total_seconds())
+            print((datetime.timedelta(0, 0, 1) + datetime.timedelta(-1, 0, 0)).total_seconds())
+            print((datetime.timedelta(1, 1, 1) + datetime.timedelta(1, 2, 3)).total_seconds())
+            print((datetime.timedelta(999999999) + datetime.timedelta(0, 60*60*24-1, 999999)).total_seconds())
+            
+            try:
+                print((datetime.timedelta(1) + 2).total_seconds())
+            except TypeError as e:
+                print(e)
+
+            try:
+                print((datetime.timedelta(999999999) + datetime.timedelta(1)).total_seconds())
+            except OverflowError as e:
+                print(e)
+                
+        """)

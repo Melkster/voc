@@ -40,9 +40,7 @@ public class timedelta extends org.python.types.Object {
     }
 
     private timedelta(long days, long seconds, long microseconds) {
-        this.days = org.python.types.Int.getInt(days);
-        this.seconds = org.python.types.Int.getInt(seconds);
-        this.microseconds = org.python.types.Int.getInt(microseconds);
+        this((double) days, (double) seconds, (double) microseconds);
     }
 
     private timedelta(double days, double seconds, double microseconds) {
@@ -160,5 +158,26 @@ public class timedelta extends org.python.types.Object {
                     this.microseconds.value * mult);
         }
         return super.__mul__(other);
+    }
+
+    @Override
+    @org.python.Method(
+            __doc__ = "Return self+value.",
+            args = {"other"}
+    )
+    public org.python.Object __add__(org.python.Object other) {
+        if (other instanceof org.python.stdlib.datetime.timedelta) {
+            timedelta otherTd = (timedelta) other;
+            return new timedelta(this.days.value + otherTd.days.value, 
+                                this.seconds.value + otherTd.seconds.value,
+                                this.microseconds.value + otherTd.microseconds.value);
+        } else {
+            return super.__add__(other);
+        }
+    }
+
+    @Override
+    public java.lang.String typeName() {
+        return "datetime.timedelta";
     }
 }
