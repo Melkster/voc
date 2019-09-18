@@ -75,7 +75,7 @@ public class timedelta extends org.python.types.Object {
         seconds -= seconds % 1;
 
         // round the answer to whole microseconds
-        microseconds = Math.round(microseconds);
+        microseconds = roundHalfToEven(microseconds);
 
         // convert many microseconds to seconds
         seconds += (long) (microseconds / 1e6);
@@ -106,6 +106,17 @@ public class timedelta extends org.python.types.Object {
         this.days = org.python.types.Int.getInt((long) days);
         this.seconds = org.python.types.Int.getInt((long) seconds);
         this.microseconds = org.python.types.Int.getInt((long) microseconds);
+    }
+
+    private static long roundHalfToEven(double d) {
+        if (d % 0.5 == 0 && d % 1 != 0) {
+            if (Math.floor(d) % 2 == 0) {
+                return (long) Math.floor(d);
+            } else {
+                return (long) Math.ceil(d);
+            }
+        }
+        return Math.round(d);
     }
 
     @org.python.Method(__doc__ = "Return the total number of seconds contained in the duration.\n"
