@@ -45,6 +45,10 @@ public class timedelta extends org.python.types.Object {
         this.microseconds = org.python.types.Int.getInt(microseconds);
     }
 
+    private timedelta(double days, double seconds, double microseconds) {
+        normalize(days, seconds, microseconds);
+    }
+
     @org.python.Method(__doc__ = "Creates empty timedelta", default_args = { "iterable" }, kwargs = "kwargs")
     public timedelta(org.python.Object[] args, java.util.Map<java.lang.String, org.python.Object> kwargs) {
         double days = 0;
@@ -59,6 +63,10 @@ public class timedelta extends org.python.types.Object {
         seconds += getArg(5, "hours", args, kwargs) * 60 * 60;
         days += getArg(6, "weeks", args, kwargs) * 7;
 
+        normalize(days, seconds, microseconds);
+    }
+
+    private void normalize(double days, double seconds, double microseconds) {
         // convert decimals to smaller units e.g. 1.5 days => 1 days and 43200 seconds
         seconds += (days % 1) * 60 * 60 * 24;
         days -= days % 1;
@@ -126,5 +134,20 @@ public class timedelta extends org.python.types.Object {
         } else {
             return ((org.python.types.Float) obj.__float__()).value;
         }
+    }
+
+    @Override
+    @org.python.Method(
+            __doc__ = "Return self*value",
+            args = {"other"}
+    )
+    public org.python.Object __mul__(org.python.Object other) {
+        if (other instanceof org.python.types.Int || other instanceof org.python.types.Float) {
+            double mult = getFloatvalue(other);
+            return new timedelta(mult * this.days.value,
+                    this.seconds.value * mult, 
+                    this.microseconds.value * mult);
+        }
+        return super.__mul__(other);
     }
 }
