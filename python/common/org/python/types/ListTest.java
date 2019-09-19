@@ -1,14 +1,21 @@
 package org.python.types;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertFalse;
 import org.junit.Test;
 
 public class ListTest {
-
-    // Simple stub to test if compilation of tests works
     @Test
-    public void List() {
-        org.python.types.List l = new List();
+    public void toJava() {
+        List l = new List();
+        assertNotNull(l.toJava());
+    }
+
+    @Test
+    public void isHashable() {
+        List l = new List();
+        assertFalse(l.isHashable());
     }
 }
 
