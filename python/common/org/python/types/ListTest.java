@@ -58,7 +58,7 @@ public class ListTest {
 
         assertEquals(Int.getInt(1), l1.__len__());
         assertEquals(Int.getInt(1), l2.__len__());
-        
+
         l1.__iadd__(l2);
 
         assertEquals(Int.getInt(1), l1.__getitem__(Int.getInt(0)));
@@ -85,5 +85,49 @@ public class ListTest {
         assertEquals(Int.getInt(2), l2.__len__());
         assertEquals(Int.getInt(1), l1.__len__());
     }
-}
 
+    /*
+     * __bool__()
+     */
+
+    @Test()
+    public void __bool__empty() {
+        List l1 = new List();
+
+        assertEquals(org.python.types.Bool.FALSE, l1.__bool__());
+    }
+
+    @Test()
+    public void __bool__str() {
+        List l1 = new List();
+
+        l1.append(new Str("foo"));
+        assertEquals(org.python.types.Bool.TRUE, l1.__bool__());
+    }
+
+    @Test()
+    public void __bool__multipleTypes() {
+        List l1 = new List();
+
+        l1.append(new Str("foo"));
+        l1.append(Int.getInt(0));
+        l1.append(new List());
+        assertEquals(Bool.TRUE, l1.__bool__());
+    }
+
+    @Test()
+    public void __bool__None() {
+        List l1 = new List();
+
+        l1.append(NoneType.NONE);
+        assertEquals(Bool.TRUE, l1.__bool__());
+    }
+
+    @Test()
+    public void __bool__EmptyList() {
+        List l1 = new List();
+
+        l1.append(new List());
+        assertEquals(Bool.TRUE, l1.__bool__());
+    }
+}
