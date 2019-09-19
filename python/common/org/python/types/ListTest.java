@@ -178,7 +178,6 @@ public class ListTest {
         assertEquals(m.__getitem__(Int.getInt(1)), m.__getitem__(Int.getInt(4)));
         assertEquals(m.__getitem__(Int.getInt(2)), m.__getitem__(Int.getInt(5)));
     }
-    
 
     @Test
     public void testIMulEmpty() {
@@ -244,7 +243,7 @@ public class ListTest {
         l.clear();
         assertEquals(Int.getInt(0), l.__len__());
     }
-    
+
     @Test
     public void testCopy() {
         org.python.types.List l = new List();
@@ -252,7 +251,7 @@ public class ListTest {
         l.append(new Str("a string"));
         l.append(Bool.getBool(true));
 
-        org.python.types.List lCopy = (List)l.copy();
+        org.python.types.List lCopy = (List) l.copy();
 
         assertEquals(Int.getInt(1), l.__getitem__(Int.getInt(0)));
         assertEquals(new Str("a string"), l.__getitem__(Int.getInt(1)));
@@ -311,7 +310,7 @@ public class ListTest {
         assertEquals(new Str("a"), l.__getitem__(Int.getInt(1)));
         assertEquals(new Str("b"), l.__getitem__(Int.getInt(2)));
     }
-    
+
     @Test
     public void testExtendSet() {
         org.python.types.List l = new List();
@@ -326,7 +325,7 @@ public class ListTest {
         assertEquals(Int.getInt(1), l.__getitem__(Int.getInt(0)));
         assertEquals(new Str("a"), l.__getitem__(Int.getInt(1)));
         assertEquals(new Str("b"), l.__getitem__(Int.getInt(2)));
-    }    
+    }
 
     @Test
     public void testExtendFrozenSet() {
@@ -359,4 +358,63 @@ public class ListTest {
         assertEquals(new Str("b"), l.__getitem__(Int.getInt(2)));
     }
 
+    @Test
+    public void testIndex() {
+        org.python.types.List l = new List();
+        l.append(new Str("a"));
+        l.append(new Str("b"));
+        l.append(new Str("c"));
+
+        assertEquals(Int.getInt(0), l.index(new Str("a"), null, null));
+    }
+
+    @Test
+    public void testIndexStart() {
+        org.python.types.List l = new List();
+        l.append(Int.getInt(1));
+        l.append(Int.getInt(2));
+        l.append(Int.getInt(3));
+
+        assertEquals(Int.getInt(1), l.index(Int.getInt(2), Int.getInt(1), null));
+    }
+
+    @Test(expected = org.python.exceptions.ValueError.class)
+    public void testIndexStartAfterValue() {
+        org.python.types.List l = new List();
+        l.append(Int.getInt(1));
+        l.append(Int.getInt(2));
+        l.append(Int.getInt(3));
+
+        l.index(Int.getInt(1), Int.getInt(1), null);
+    }
+
+    @Test
+    public void testIndexStartEnd() {
+        org.python.types.List l = new List();
+        l.append(Int.getInt(1));
+        l.append(Int.getInt(2));
+        l.append(Int.getInt(3));
+
+        assertEquals(Int.getInt(1), l.index(Int.getInt(2), Int.getInt(0), l.__len__()));
+    }
+
+    @Test(expected = org.python.exceptions.ValueError.class)
+    public void testIndexStartEndBeforeValue() {
+        org.python.types.List l = new List();
+        l.append(Int.getInt(1));
+        l.append(Int.getInt(2));
+        l.append(Int.getInt(3));
+
+        l.index(Int.getInt(3), Int.getInt(0), Int.getInt(2));
+    }
+
+    @Test(expected = org.python.exceptions.ValueError.class)
+    public void testIndexNotFound() {
+        org.python.types.List l = new List();
+        l.append(Int.getInt(1));
+        l.append(Int.getInt(2));
+        l.append(Int.getInt(3));
+
+        l.index(Int.getInt(5), null, null);
+    }
 }
