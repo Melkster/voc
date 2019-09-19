@@ -58,12 +58,45 @@ public class ListTest {
 
         l1.__iadd__(l2);
 
-        assertEquals(l1.__getitem__(org.python.types.Int.getInt(0)), org.python.types.Int.getInt(1));
-        assertEquals(l1.__getitem__(org.python.types.Int.getInt(1)), org.python.types.Int.getInt(2));
-        assertEquals(l1.__len__(), org.python.types.Int.getInt(2));
-        assertEquals(l2.__len__(), org.python.types.Int.getInt(1));
+        assertEquals(org.python.types.Int.getInt(1), l1.__getitem__(org.python.types.Int.getInt(0)));
+        assertEquals(org.python.types.Int.getInt(2), l1.__getitem__(org.python.types.Int.getInt(1)));
+        assertEquals(org.python.types.Int.getInt(2), l1.__len__());
+        assertEquals(org.python.types.Int.getInt(1), l2.__len__());
     }
 
+    @Test()
+    public void __iadd__listsReverse() {
+        List l1 = new List();
+        List l2 = new List();
+
+        l1.append(org.python.types.Int.getInt(1));
+        l2.append(org.python.types.Int.getInt(2));
+
+        l2.__iadd__(l1);
+
+        assertEquals(org.python.types.Int.getInt(2), l2.__getitem__(org.python.types.Int.getInt(0)));
+        assertEquals(org.python.types.Int.getInt(1), l2.__getitem__(org.python.types.Int.getInt(1)));
+        assertEquals(org.python.types.Int.getInt(2), l2.__len__());
+        assertEquals(org.python.types.Int.getInt(1), l1.__len__());
+    }
+
+    @Test()
+    public void __iadd__tuple() {
+        java.util.ArrayList<org.python.Object> v1 = new java.util.ArrayList<org.python.Object>();
+        v1.add(org.python.types.Int.getInt(1));
+        v1.add(org.python.types.Int.getInt(2));
+
+        java.util.ArrayList<org.python.Object> v2 = new java.util.ArrayList<org.python.Object>();
+        v2.add(org.python.types.Int.getInt(3));
+        v2.add(org.python.types.Int.getInt(4));
+
+        Tuple t1 = new Tuple(v1);
+        Tuple t2 = new Tuple(v2);
+
+        t1.__iadd__(t2);
+        
+        assertEquals(org.python.types.Int.getInt(1), t1.value.get(0));
+    }
 
 }
 
