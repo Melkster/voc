@@ -80,6 +80,10 @@ public class ListTest {
         assertEquals(org.python.types.Int.getInt(1), l1.__len__());
     }
 
+    /**
+     * Expected behaviour is actually for __iadd__ to
+     * update this.value. Here we need to store the returned value.
+     */
     @Test()
     public void __iadd__tuple() {
         java.util.ArrayList<org.python.Object> v1 = new java.util.ArrayList<org.python.Object>();
@@ -93,10 +97,73 @@ public class ListTest {
         Tuple t1 = new Tuple(v1);
         Tuple t2 = new Tuple(v2);
 
-        t1.__iadd__(t2);
-        
-        assertEquals(org.python.types.Int.getInt(1), t1.value.get(0));
+        Tuple t = (Tuple) t1.__iadd__(t2);
+        assertEquals(4, t.value.size());
+        assertEquals(org.python.types.Int.getInt(1), t.value.get(0));
+        assertEquals(org.python.types.Int.getInt(2), t.value.get(1));
+        assertEquals(org.python.types.Int.getInt(3), t.value.get(2));
+        assertEquals(org.python.types.Int.getInt(4), t.value.get(3));
     }
 
+    @Test()
+    public void __iadd__tupleReverse() {
+        java.util.ArrayList<org.python.Object> v1 = new java.util.ArrayList<org.python.Object>();
+        v1.add(org.python.types.Int.getInt(1));
+        v1.add(org.python.types.Int.getInt(2));
+
+        java.util.ArrayList<org.python.Object> v2 = new java.util.ArrayList<org.python.Object>();
+        v2.add(org.python.types.Int.getInt(3));
+        v2.add(org.python.types.Int.getInt(4));
+
+        Tuple t1 = new Tuple(v1);
+        Tuple t2 = new Tuple(v2);
+
+        Tuple t = (Tuple) t2.__iadd__(t1);
+        assertEquals(4, t.value.size());
+        assertEquals(org.python.types.Int.getInt(3), t.value.get(0));
+        assertEquals(org.python.types.Int.getInt(4), t.value.get(1));
+        assertEquals(org.python.types.Int.getInt(1), t.value.get(2));
+        assertEquals(org.python.types.Int.getInt(2), t.value.get(3));
+    }
+
+    /**
+     * They seem to have implemented Set and FrozenSet, but it's not working.
+     * It's not implemented correctly.
+     */
+    @Test()
+    public void __iadd__set() {
+        Set s1 = new Set();
+        s1.value.add(org.python.types.Int.getInt(1));
+        
+        Set s2 = new Set();
+        s2.value.add(org.python.types.Int.getInt(1));
+
+        // s1.__iadd__(s2);
+        // assertEquals(org.python.types.Int.getInt(2), s2.value.size());
+    }
+
+    /**
+     * Expected behaviour is actually for __iadd__ to
+     * update this.value. Here we need to store the returned value.
+     */
+    @Test()
+    public void __iadd__str() {
+        Str s1 = new Str("foo");
+        Str s2 = new Str("bar");
+
+        Str s = (Str) s1.__iadd__(s2);
+
+        assertEquals("foobar", s.toString());
+    }
+
+    @Test()
+    public void __iadd__strReverse() {
+        Str s1 = new Str("foo");
+        Str s2 = new Str("bar");
+
+        Str s = (Str) s2.__iadd__(s1);
+
+        assertEquals("barfoo", s.toString());
+    }
 }
 
