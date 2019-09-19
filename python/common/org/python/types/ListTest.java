@@ -17,5 +17,10 @@ public class ListTest {
         List l = new List();
         assertFalse(l.isHashable());
     }
+
+    @Test(expected = org.python.exceptions.AttributeError.class)
+    public void __hash__() {
+        new List().__hash__();
+    }
 }
 
