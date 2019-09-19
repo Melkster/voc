@@ -39,5 +39,22 @@ public class ListTest {
         l.__setitem__(Int.getInt(-2), Int.getInt(5));
     }
 
+    @Test
+    public void testDelItem() {
+        org.python.types.List l = new List();
+        l.append(Int.getInt(1));
+        l.append(Int.getInt(2));
+        l.append(Int.getInt(3));
+        l.__delitem__(Int.getInt(1));
+        assertEquals(Int.getInt(1), l.__getitem__(Int.getInt(0)));
+        assertEquals(Int.getInt(3), l.__getitem__(Int.getInt(1)));
+        assertEquals(Int.getInt(2), l.__len__());
+    }
+
+    @Test(expected = org.python.exceptions.IndexError.class)
+    public void testDelItemOutOfBounds() {
+        org.python.types.List l = new List();
+        l.__delitem__(Int.getInt(0));
+    }
 }
 
