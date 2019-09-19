@@ -73,7 +73,6 @@ public class ListTest {
         assertTrue(reversedIter instanceof List_ReverseIterator);
     }
 
-
     @Test
     public void testContains() {
         org.python.types.List l = new List();
@@ -109,17 +108,61 @@ public class ListTest {
         assertTrue(l.__contains__(Int.getInt(0)).toBoolean());
         assertFalse(l.__contains__(Int.getInt(2)).toBoolean());
     }
-    
+
     @Test
     public void testAdd() {
         org.python.types.List l = new List();
         l.append(Int.getInt(1));
         org.python.types.List m = new List();
         m.append(Int.getInt(2));
-        org.python.types.List n = (List)l.__add__(m);
-        
+        org.python.types.List n = (List) l.__add__(m);
+
         assertEquals(Int.getInt(1), n.__getitem__(Int.getInt(0)));
         assertEquals(Int.getInt(2), n.__getitem__(Int.getInt(1)));
     }
-}
 
+    @Test
+    public void testMulWithInteger() {
+        org.python.types.List l = new List();
+        l.append(Int.getInt(1));
+        l.append(Int.getInt(2));
+        l.append(Int.getInt(3));
+        org.python.types.List m = (List) l.__mul__(Int.getInt(2));
+
+        assertEquals(m.__getitem__(Int.getInt(0)), m.__getitem__(Int.getInt(3)));
+        assertEquals(m.__getitem__(Int.getInt(1)), m.__getitem__(Int.getInt(4)));
+        assertEquals(m.__getitem__(Int.getInt(2)), m.__getitem__(Int.getInt(5)));
+    }
+
+    @Test
+    public void testMulEmpty() {
+        org.python.types.List l = new List();
+
+        List mul = (List) l.__mul__(Int.getInt(2));
+
+        assertEquals(Int.getInt(0), mul.__len__());
+    }
+
+    @Test
+    public void testMulBoolTrue() {
+        org.python.types.List l = new List();
+        l.append(Int.getInt(1));
+        l.append(Int.getInt(2));
+
+        List mulTrue = (List) l.__mul__(Bool.getBool(true));
+
+        assertEquals(Int.getInt(1), mulTrue.__getitem__(Int.getInt(0)));
+        assertEquals(Int.getInt(2), mulTrue.__getitem__(Int.getInt(1)));
+    }
+
+    @Test
+    public void testMulBoolFalse() {
+        org.python.types.List l = new List();
+        l.append(Int.getInt(1));
+        l.append(Int.getInt(2));
+
+        List mulFalse = (List) l.__mul__(Bool.getBool(false));
+
+        assertEquals(Int.getInt(0), mulFalse.__len__());
+    }
+}
