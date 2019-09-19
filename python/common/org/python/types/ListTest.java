@@ -64,5 +64,12 @@ public class ListTest {
         org.python.Object iter = l.__iter__();
         assertTrue(iter instanceof List_Iterator);
     }
+
+    @Test
+    public void testReversed() {
+        org.python.types.List l = new List();
+        org.python.Object reversedIter = l.__reversed__();
+        assertTrue(reversedIter instanceof List_ReverseIterator);
+    }
 }
 
