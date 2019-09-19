@@ -110,6 +110,16 @@ public class ListTest {
         assertFalse(l.__contains__(Int.getInt(2)).toBoolean());
     }
     
-
+    @Test
+    public void testAdd() {
+        org.python.types.List l = new List();
+        l.append(Int.getInt(1));
+        org.python.types.List m = new List();
+        m.append(Int.getInt(2));
+        org.python.types.List n = (List)l.__add__(m);
+        
+        assertEquals(Int.getInt(1), n.__getitem__(Int.getInt(0)));
+        assertEquals(Int.getInt(2), n.__getitem__(Int.getInt(1)));
+    }
 }
 
