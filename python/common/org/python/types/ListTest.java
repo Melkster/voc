@@ -165,4 +165,52 @@ public class ListTest {
 
         assertEquals(Int.getInt(0), mulFalse.__len__());
     }
+
+    @Test
+    public void testIMulWithInteger() {
+        org.python.types.List l = new List();
+        l.append(Int.getInt(1));
+        l.append(Int.getInt(2));
+        l.append(Int.getInt(3));
+        org.python.types.List m = (List) l.__imul__(Int.getInt(2));
+
+        assertEquals(m.__getitem__(Int.getInt(0)), m.__getitem__(Int.getInt(3)));
+        assertEquals(m.__getitem__(Int.getInt(1)), m.__getitem__(Int.getInt(4)));
+        assertEquals(m.__getitem__(Int.getInt(2)), m.__getitem__(Int.getInt(5)));
+    }
+    
+
+    @Test
+    public void testIMulEmpty() {
+        org.python.types.List l = new List();
+
+        List mul = (List) l.__imul__(Int.getInt(2));
+
+        assertEquals(Int.getInt(0), mul.__len__());
+    }
+
+    @Test
+    public void testIMulBoolTrue() {
+        org.python.types.List l = new List();
+        l.append(Int.getInt(1));
+        l.append(Int.getInt(2));
+
+        List mulTrue = (List) l.__imul__(Bool.getBool(true));
+
+        assertEquals(Int.getInt(1), mulTrue.__getitem__(Int.getInt(0)));
+        assertEquals(Int.getInt(2), mulTrue.__getitem__(Int.getInt(1)));
+    }
+
+    @Test
+    public void testIMulBoolFalse() {
+        org.python.types.List l = new List();
+        l.append(Int.getInt(1));
+        l.append(Int.getInt(2));
+
+        List mulFalse = (List) l.__imul__(Bool.getBool(false));
+
+        assertEquals(Int.getInt(0), mulFalse.__len__());
+    }
+
+
 }
