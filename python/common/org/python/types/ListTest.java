@@ -56,5 +56,11 @@ public class ListTest {
         org.python.types.List l = new List();
         l.__delitem__(Int.getInt(0));
     }
+
+    @Test
+    public void testIterator() {
+        org.python.types.List l = new List();
+        org.python.Object iter = l.__iter__();
+    }
 }
 
