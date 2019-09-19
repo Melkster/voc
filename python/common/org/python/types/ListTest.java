@@ -220,9 +220,30 @@ public class ListTest {
         l.append(Bool.getBool(true));
 
         assertEquals(Int.getInt(1), l.__getitem__(Int.getInt(0)));
-        assertEquals(new Str("a string"), l.__getitem__(Int.getInt(0)));
-        assertEquals(Bool.getBool(true), l.__getitem__(Int.getInt(0)));
-
+        assertEquals(new Str("a string"), l.__getitem__(Int.getInt(1)));
+        assertEquals(Bool.getBool(true), l.__getitem__(Int.getInt(2)));
     }
+
+    @Test
+    public void testClear() {
+        org.python.types.List l = new List();
+        l.append(Int.getInt(1));
+        l.append(new Str("a string"));
+        l.append(Bool.getBool(true));
+
+        assertEquals(Int.getInt(3), l.__len__());
+        l.clear();
+        assertEquals(Int.getInt(0), l.__len__());
+    }
+
+    @Test
+    public void testClearEmpty() {
+        org.python.types.List l = new List();
+
+        assertEquals(Int.getInt(0), l.__len__());
+        l.clear();
+        assertEquals(Int.getInt(0), l.__len__());
+    }
+    
 
 }
