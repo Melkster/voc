@@ -281,4 +281,82 @@ public class ListTest {
         assertEquals(Int.getInt(0), l.count(new Str("a non-existing string")));
     }
 
+    @Test
+    public void testExtendList() {
+        org.python.types.List l = new List();
+        l.append(Int.getInt(1));
+
+        org.python.types.List toExtend = new List();
+        l.append(new Str("a"));
+        l.append(new Str("b"));
+
+        l.extend(toExtend);
+        assertEquals(Int.getInt(1), l.__getitem__(Int.getInt(0)));
+        assertEquals(new Str("a"), l.__getitem__(Int.getInt(1)));
+        assertEquals(new Str("b"), l.__getitem__(Int.getInt(2)));
+    }
+
+    @Test
+    public void testExtendTuple() {
+        org.python.types.List l = new List();
+        l.append(Int.getInt(1));
+
+        java.util.List<org.python.Object> tuple = new java.util.LinkedList<org.python.Object>();
+        tuple.add(new Str("a"));
+        tuple.add(new Str("b"));
+        Tuple toExtend = new Tuple(tuple);
+
+        l.extend(toExtend);
+        assertEquals(Int.getInt(1), l.__getitem__(Int.getInt(0)));
+        assertEquals(new Str("a"), l.__getitem__(Int.getInt(1)));
+        assertEquals(new Str("b"), l.__getitem__(Int.getInt(2)));
+    }
+    
+    @Test
+    public void testExtendSet() {
+        org.python.types.List l = new List();
+        l.append(Int.getInt(1));
+
+        java.util.Set<org.python.Object> set = new java.util.HashSet<org.python.Object>();
+        set.add(new Str("a"));
+        set.add(new Str("b"));
+        Set toExtend = new Set(set);
+
+        l.extend(toExtend);
+        assertEquals(Int.getInt(1), l.__getitem__(Int.getInt(0)));
+        assertEquals(new Str("a"), l.__getitem__(Int.getInt(1)));
+        assertEquals(new Str("b"), l.__getitem__(Int.getInt(2)));
+    }    
+
+    @Test
+    public void testExtendFrozenSet() {
+        org.python.types.List l = new List();
+        l.append(Int.getInt(1));
+
+        java.util.Set<org.python.Object> set = new java.util.HashSet<org.python.Object>();
+        set.add(new Str("a"));
+        set.add(new Str("b"));
+        FrozenSet toExtend = new FrozenSet(set);
+
+        l.extend(toExtend);
+        assertEquals(Int.getInt(1), l.__getitem__(Int.getInt(0)));
+        assertEquals(new Str("a"), l.__getitem__(Int.getInt(1)));
+        assertEquals(new Str("b"), l.__getitem__(Int.getInt(2)));
+    }
+
+    @Test
+    public void testExtendDict() {
+        org.python.types.List l = new List();
+        l.append(Int.getInt(1));
+
+        Dict toExtend = new Dict();
+        toExtend.__setitem__(new Str("a"), Int.getInt(0));
+        toExtend.__setitem__(new Str("b"), Int.getInt(0));
+
+        l.extend(toExtend);
+        assertEquals(Int.getInt(1), l.__getitem__(Int.getInt(0)));
+        assertEquals(new Str("a"), l.__getitem__(Int.getInt(1)));
+        assertEquals(new Str("b"), l.__getitem__(Int.getInt(2)));
+    }
+
 }
