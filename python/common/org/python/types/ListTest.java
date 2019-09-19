@@ -212,5 +212,17 @@ public class ListTest {
         assertEquals(Int.getInt(0), mulFalse.__len__());
     }
 
+    @Test
+    public void testAppend() {
+        org.python.types.List l = new List();
+        l.append(Int.getInt(1));
+        l.append(new Str("a string"));
+        l.append(Bool.getBool(true));
+
+        assertEquals(Int.getInt(1), l.__getitem__(Int.getInt(0)));
+        assertEquals(new Str("a string"), l.__getitem__(Int.getInt(0)));
+        assertEquals(Bool.getBool(true), l.__getitem__(Int.getInt(0)));
+
+    }
 
 }
