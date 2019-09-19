@@ -7,19 +7,22 @@ import org.junit.Test;
 
 public class ListTest {
     @Test
-    public void toJava() {
-        List l = new List();
-        assertNotNull(l.toJava());
+    public void toJava_notNull() {
+        assertNotNull(new List().toJava());
     }
 
     @Test
-    public void isHashable() {
-        List l = new List();
-        assertFalse(l.isHashable());
+    public void isHashable_isFalse() {
+        assertFalse(new List().isHashable());
+    }
+
+    @Test
+    public void hashCode_notNull() {
+        assertNotNull(new List().hashCode());
     }
 
     @Test(expected = org.python.exceptions.AttributeError.class)
-    public void __hash__() {
+    public void __hash___shouldThrowException() {
         new List().__hash__();
     }
 }
