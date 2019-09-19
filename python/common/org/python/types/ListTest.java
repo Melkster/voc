@@ -245,5 +245,25 @@ public class ListTest {
         assertEquals(Int.getInt(0), l.__len__());
     }
     
+    @Test
+    public void testCopy() {
+        org.python.types.List l = new List();
+        l.append(Int.getInt(1));
+        l.append(new Str("a string"));
+        l.append(Bool.getBool(true));
+
+        org.python.types.List lCopy = (List)l.copy();
+
+        assertEquals(Int.getInt(1), l.__getitem__(Int.getInt(0)));
+        assertEquals(new Str("a string"), l.__getitem__(Int.getInt(1)));
+        assertEquals(Bool.getBool(true), l.__getitem__(Int.getInt(2)));
+        assertEquals(Int.getInt(1), lCopy.__getitem__(Int.getInt(0)));
+        assertEquals(new Str("a string"), lCopy.__getitem__(Int.getInt(1)));
+        assertEquals(Bool.getBool(true), lCopy.__getitem__(Int.getInt(2)));
+
+        l.__delitem__(Int.getInt(0));
+        assertEquals(Int.getInt(2), l.__len__());
+        assertEquals(Int.getInt(3), lCopy.__len__());
+    }
 
 }
