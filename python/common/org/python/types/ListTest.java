@@ -49,7 +49,7 @@ public class ListTest {
     }
 
     @Test()
-    public void __iadd__lists() {
+    public void __iadd___lists() {
         List l1 = new List();
         List l2 = new List();
 
@@ -65,7 +65,7 @@ public class ListTest {
     }
 
     @Test()
-    public void __iadd__listsReverse() {
+    public void __iadd___listsReverse() {
         List l1 = new List();
         List l2 = new List();
 
@@ -85,7 +85,7 @@ public class ListTest {
      * update this.value. Here we need to store the returned value.
      */
     @Test()
-    public void __iadd__tuple() {
+    public void __iadd___tuple() {
         java.util.ArrayList<org.python.Object> v1 = new java.util.ArrayList<org.python.Object>();
         v1.add(org.python.types.Int.getInt(1));
         v1.add(org.python.types.Int.getInt(2));
@@ -106,7 +106,7 @@ public class ListTest {
     }
 
     @Test()
-    public void __iadd__tupleReverse() {
+    public void __iadd___tupleReverse() {
         java.util.ArrayList<org.python.Object> v1 = new java.util.ArrayList<org.python.Object>();
         v1.add(org.python.types.Int.getInt(1));
         v1.add(org.python.types.Int.getInt(2));
@@ -131,7 +131,7 @@ public class ListTest {
      * It's not implemented correctly.
      */
     @Test()
-    public void __iadd__set() {
+    public void __iadd___set() {
         Set s1 = new Set();
         s1.value.add(org.python.types.Int.getInt(1));
         
@@ -147,7 +147,7 @@ public class ListTest {
      * update this.value. Here we need to store the returned value.
      */
     @Test()
-    public void __iadd__str() {
+    public void __iadd___str() {
         Str s1 = new Str("foo");
         Str s2 = new Str("bar");
 
@@ -157,7 +157,7 @@ public class ListTest {
     }
 
     @Test()
-    public void __iadd__strReverse() {
+    public void __iadd___strReverse() {
         Str s1 = new Str("foo");
         Str s2 = new Str("bar");
 
