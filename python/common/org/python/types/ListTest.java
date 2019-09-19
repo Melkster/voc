@@ -2,6 +2,7 @@ package org.python.types;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertFalse;
 import org.junit.Test;
 
 public class ListTest {
@@ -71,5 +72,44 @@ public class ListTest {
         org.python.Object reversedIter = l.__reversed__();
         assertTrue(reversedIter instanceof List_ReverseIterator);
     }
+
+
+    @Test
+    public void testContains() {
+        org.python.types.List l = new List();
+        l.append(Int.getInt(1));
+        l.append(Int.getInt(2));
+        l.append(Int.getInt(3));
+        l.append(Int.getInt(4));
+        l.append(Int.getInt(5));
+
+        assertTrue(l.__contains__(Int.getInt(1)).toBoolean());
+    }
+
+    @Test
+    public void testContainsDoesntExist() {
+        org.python.types.List l = new List();
+        l.append(Int.getInt(1));
+        l.append(Int.getInt(2));
+        l.append(Int.getInt(3));
+        l.append(Int.getInt(4));
+        l.append(Int.getInt(5));
+
+        assertFalse(l.__contains__(Int.getInt(0)).toBoolean());
+    }
+
+    @Test
+    public void testContainsBool() {
+        org.python.types.List l = new List();
+        l.append(Bool.getBool(true));
+        l.append(Bool.getBool(false));
+
+        // Since True=1 and False=0
+        assertTrue(l.__contains__(Int.getInt(1)).toBoolean());
+        assertTrue(l.__contains__(Int.getInt(0)).toBoolean());
+        assertFalse(l.__contains__(Int.getInt(2)).toBoolean());
+    }
+    
+
 }
 
