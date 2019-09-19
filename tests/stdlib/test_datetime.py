@@ -183,16 +183,16 @@ class DatetimeModuleTests(TranspileTestCase):
     def test_timedelta_class_attributes(self):
         self.assertCodeExecution("""
             import datetime
-            print(datetime.timedelta.min.days);
-            print(datetime.timedelta.min.seconds);
-            print(datetime.timedelta.min.microseconds);
-            print(datetime.timedelta.max.days);
-            print(datetime.timedelta.max.seconds);
-            print(datetime.timedelta.max.microseconds);
-            print(datetime.timedelta.resolution.days);
-            print(datetime.timedelta.resolution.seconds);
-            print(datetime.timedelta.resolution.microseconds);
-        """)
+            print(datetime.timedelta().min.days)
+            print(datetime.timedelta().max.days)
+            print(datetime.timedelta().resolution.days)
+            print(datetime.timedelta().min.seconds)
+            print(datetime.timedelta().max.seconds)
+            print(datetime.timedelta().resolution.seconds)
+            print(datetime.timedelta().min.microseconds)
+            print(datetime.timedelta().max.microseconds)
+            print(datetime.timedelta().resolution.microseconds)
+        """);
 
     def test_timedelta_multiplication(self):
         self.assertCodeExecution("""
