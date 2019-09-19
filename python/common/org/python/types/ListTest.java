@@ -266,4 +266,19 @@ public class ListTest {
         assertEquals(Int.getInt(3), lCopy.__len__());
     }
 
+    @Test
+    public void testCount() {
+        org.python.types.List l = new List();
+        l.append(Int.getInt(1));
+        l.append(Int.getInt(1));
+        l.append(new Str("a string"));
+        l.append(Bool.getBool(true));
+
+        // Remember, True == 1
+        assertEquals(Int.getInt(3), l.count(Int.getInt(1)));
+        assertEquals(Int.getInt(1), l.count(new Str("a string")));
+        assertEquals(Int.getInt(3), l.count(Bool.getBool(true)));
+        assertEquals(Int.getInt(0), l.count(new Str("a non-existing string")));
+    }
+
 }
