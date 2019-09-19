@@ -9,6 +9,10 @@
            debuglevel="lines,vars,source"
            includeantruntime="false"
            destdir="${build}/java">
+           <classpath>
+             <pathelement path="${support_libraries}/junit-4.13-beta-3.jar"/>
+             <pathelement path="${support_libraries}/hamcrest-core-1.3.jar"/>
+           </classpath>
       <src path="${src}/common" />
       <src path="${src}/java" />
     </javac>
