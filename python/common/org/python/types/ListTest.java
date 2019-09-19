@@ -1,6 +1,7 @@
 package org.python.types;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 
 public class ListTest {
@@ -61,6 +62,7 @@ public class ListTest {
     public void testIterator() {
         org.python.types.List l = new List();
         org.python.Object iter = l.__iter__();
+        assertTrue(iter instanceof List_Iterator);
     }
 }
 
