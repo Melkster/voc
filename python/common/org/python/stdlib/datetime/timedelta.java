@@ -124,7 +124,7 @@ public class timedelta extends org.python.types.Object {
             + "other than seconds, use the division form directly \n"
             + "(e.g. td / timedelta(microseconds=1)).\n", args = {})
     public org.python.Object total_seconds() {
-        // Regular double precision isn't enough! We need the big stuff
+        // Python handles doubles larger than the standard double in Java, thus we have to use BigDecimal
         BigDecimal daysInSeconds = BigDecimal.valueOf(days.value).multiply(BigDecimal.valueOf(24 * 60 * 60));
         BigDecimal bigSeconds = BigDecimal.valueOf(seconds.value);
         BigDecimal microsecondsInSeconds = BigDecimal.valueOf(microseconds.value).divide(BigDecimal.valueOf(1e6));
