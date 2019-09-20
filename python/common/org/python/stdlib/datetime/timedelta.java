@@ -75,7 +75,6 @@ public class timedelta extends org.python.types.Object {
         microseconds += (seconds % 1) * 1e6;
         seconds -= seconds % 1;
 
-        // round the answer to whole microseconds
         microseconds = roundHalfToEven(microseconds);
 
         // convert many microseconds to seconds
