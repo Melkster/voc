@@ -7,20 +7,26 @@ import org.junit.Test;
 
 public class ListTest {
 
+    private List createList(int ...values) {
+        List l = new List();
+        for (int value : values) {
+            l.append(Int.getInt(value));
+        }
+        return l;
+    }
+
     @Test
     public void testSetItemInteger() {
-        List l = new List();
-        l.append(Int.getInt(1));
+        List l = createList(1);
+
         l.__setitem__(Int.getInt(0), Int.getInt(5));
         assertEquals(Int.getInt(5), l.__getitem__(Int.getInt(0)));
     }
 
     @Test
     public void testSetItemString() {
-        List l = new List();
-        l.append(Int.getInt(1));
-        l.append(Int.getInt(2));
-        l.append(Int.getInt(3));
+        List l = createList(1, 2, 3);
+
         l.__setitem__(Int.getInt(1), new Str("hello"));
         l.__setitem__(Int.getInt(2), new Str("there"));
         assertEquals(Int.getInt(1), l.__getitem__(Int.getInt(0)));
@@ -36,17 +42,15 @@ public class ListTest {
 
     @Test(expected = org.python.exceptions.IndexError.class)
     public void testSetItemOutOfBoundsNegativeIndex() {
-        List l = new List();
-        l.append(Int.getInt(1));
+        List l = createList(1);
+
         l.__setitem__(Int.getInt(-2), Int.getInt(5));
     }
 
     @Test
     public void testDelItem() {
-        List l = new List();
-        l.append(Int.getInt(1));
-        l.append(Int.getInt(2));
-        l.append(Int.getInt(3));
+        List l = createList(1, 2, 3);
+
         l.__delitem__(Int.getInt(1));
         assertEquals(Int.getInt(1), l.__getitem__(Int.getInt(0)));
         assertEquals(Int.getInt(3), l.__getitem__(Int.getInt(1)));
@@ -75,24 +79,14 @@ public class ListTest {
 
     @Test
     public void testContains() {
-        List l = new List();
-        l.append(Int.getInt(1));
-        l.append(Int.getInt(2));
-        l.append(Int.getInt(3));
-        l.append(Int.getInt(4));
-        l.append(Int.getInt(5));
+        List l = createList(1, 2, 3, 4, 5);
 
         assertTrue(l.__contains__(Int.getInt(1)).toBoolean());
     }
 
     @Test
     public void testContainsDoesntExist() {
-        List l = new List();
-        l.append(Int.getInt(1));
-        l.append(Int.getInt(2));
-        l.append(Int.getInt(3));
-        l.append(Int.getInt(4));
-        l.append(Int.getInt(5));
+        List l = createList(1, 2, 3, 4, 5);
 
         assertFalse(l.__contains__(Int.getInt(0)).toBoolean());
     }
@@ -123,10 +117,8 @@ public class ListTest {
 
     @Test
     public void testMulWithInteger() {
-        List l = new List();
-        l.append(Int.getInt(1));
-        l.append(Int.getInt(2));
-        l.append(Int.getInt(3));
+        List l = createList(1, 2, 3);
+
         List m = (List) l.__mul__(Int.getInt(2));
 
         assertEquals(m.__getitem__(Int.getInt(0)), m.__getitem__(Int.getInt(3)));
@@ -145,9 +137,7 @@ public class ListTest {
 
     @Test
     public void testMulBoolTrue() {
-        List l = new List();
-        l.append(Int.getInt(1));
-        l.append(Int.getInt(2));
+        List l = createList(1, 2);
 
         List mulTrue = (List) l.__mul__(Bool.getBool(true));
 
@@ -157,9 +147,7 @@ public class ListTest {
 
     @Test
     public void testMulBoolFalse() {
-        List l = new List();
-        l.append(Int.getInt(1));
-        l.append(Int.getInt(2));
+        List l = createList(1, 2);
 
         List mulFalse = (List) l.__mul__(Bool.getBool(false));
 
@@ -168,10 +156,8 @@ public class ListTest {
 
     @Test
     public void testIMulWithInteger() {
-        List l = new List();
-        l.append(Int.getInt(1));
-        l.append(Int.getInt(2));
-        l.append(Int.getInt(3));
+        List l = createList(1, 2, 3);
+
         List m = (List) l.__imul__(Int.getInt(2));
 
         assertEquals(m.__getitem__(Int.getInt(0)), m.__getitem__(Int.getInt(3)));
@@ -190,9 +176,7 @@ public class ListTest {
 
     @Test
     public void testIMulBoolTrue() {
-        List l = new List();
-        l.append(Int.getInt(1));
-        l.append(Int.getInt(2));
+        List l = createList(1, 2);
 
         List mulTrue = (List) l.__imul__(Bool.getBool(true));
 
@@ -202,9 +186,7 @@ public class ListTest {
 
     @Test
     public void testIMulBoolFalse() {
-        List l = new List();
-        l.append(Int.getInt(1));
-        l.append(Int.getInt(2));
+        List l = createList(1, 2);
 
         List mulFalse = (List) l.__imul__(Bool.getBool(false));
 
@@ -370,51 +352,124 @@ public class ListTest {
 
     @Test
     public void testIndexStart() {
-        List l = new List();
-        l.append(Int.getInt(1));
-        l.append(Int.getInt(2));
-        l.append(Int.getInt(3));
+        List l = createList(1, 2, 3);
 
         assertEquals(Int.getInt(1), l.index(Int.getInt(2), Int.getInt(1), null));
     }
 
     @Test(expected = org.python.exceptions.ValueError.class)
     public void testIndexStartAfterValue() {
-        List l = new List();
-        l.append(Int.getInt(1));
-        l.append(Int.getInt(2));
-        l.append(Int.getInt(3));
+        List l = createList(1, 2, 3);
 
         l.index(Int.getInt(1), Int.getInt(1), null);
     }
 
     @Test
     public void testIndexStartEnd() {
-        List l = new List();
-        l.append(Int.getInt(1));
-        l.append(Int.getInt(2));
-        l.append(Int.getInt(3));
+        List l = createList(1, 2, 3);
 
         assertEquals(Int.getInt(1), l.index(Int.getInt(2), Int.getInt(0), l.__len__()));
     }
 
     @Test(expected = org.python.exceptions.ValueError.class)
     public void testIndexStartEndBeforeValue() {
-        List l = new List();
-        l.append(Int.getInt(1));
-        l.append(Int.getInt(2));
-        l.append(Int.getInt(3));
+        List l = createList(1, 2, 3);
 
         l.index(Int.getInt(3), Int.getInt(0), Int.getInt(2));
     }
 
     @Test(expected = org.python.exceptions.ValueError.class)
     public void testIndexNotFound() {
-        List l = new List();
-        l.append(Int.getInt(1));
-        l.append(Int.getInt(2));
-        l.append(Int.getInt(3));
+        List l = createList(1, 2, 3);
 
         l.index(Int.getInt(5), null, null);
+    }
+
+    @Test
+    public void testInsertFirst() {
+        List l = createList(1, 2, 3);
+
+        l.insert(Int.getInt(0), Int.getInt(4));
+        assertEquals(Int.getInt(4), l.__getitem__(Int.getInt(0)));
+    }
+
+    @Test
+    public void testInsertSecond() {
+        List l = createList(1, 2, 3);
+
+        l.insert(Int.getInt(1), Int.getInt(5));
+        assertEquals(Int.getInt(5), l.__getitem__(Int.getInt(1)));
+    }
+    
+    @Test
+    public void testInsertLast() {
+        List l = createList(1, 2, 3);
+
+        l.insert(l.__len__(), Int.getInt(6));
+        assertEquals(Int.getInt(6), l.__getitem__(Int.getInt(3)));
+    }
+
+    @Test
+    public void testInsertAboveLast() {
+        List l = createList(1, 2, 3);
+
+        l.insert(Int.getInt(200), Int.getInt(7));
+        assertEquals(Int.getInt(7), l.__getitem__(Int.getInt(3)));
+    }
+    
+    @Test
+    public void testInsertNegativeOne() {
+        List l = createList(1, 2, 3);
+
+        l.insert(Int.getInt(-1), Int.getInt(8));
+        assertEquals(Int.getInt(8), l.__getitem__(Int.getInt(2)));
+    }
+    
+    @Test
+    public void testInsertNegativeLength() {
+        List l = createList(1, 2, 3);
+
+        l.insert(Int.getInt(-l.__len__().value), Int.getInt(9));
+        assertEquals(Int.getInt(9), l.__getitem__(Int.getInt(0)));
+    }
+    
+    @Test
+    public void testInsertNegativeAbove() {
+        List l = createList(1, 2, 3);
+
+        l.insert(Int.getInt(-200), Int.getInt(10));
+        assertEquals(Int.getInt(10), l.__getitem__(Int.getInt(0)));
+    }
+    
+    @Test
+    public void testInsertString() {
+        List l = createList(1, 2, 3);
+
+        l.insert(Int.getInt(0), new Str("hello"));
+        assertEquals(new Str("hello"), l.__getitem__(Int.getInt(0)));
+    }
+    
+    @Test
+    public void testInsertList() {
+        List l = createList(1, 2, 3);
+
+        List innerList = createList(1, 2);
+
+        l.insert(Int.getInt(0), innerList);
+        assertEquals(createList(1, 2), l.__getitem__(Int.getInt(0)));
+    }
+    
+    @Test(expected = org.python.exceptions.TypeError.class)
+    public void testInsertCharIndex() {
+        List l = createList(1, 2, 3);
+
+        l.insert(new Str('a'), Int.getInt(4));
+    }
+    
+    @Test(expected = org.python.exceptions.TypeError.class)
+    public void testInsertListIndex() {
+        List l = createList(1, 2, 3);
+
+        l.insert(createList(1, 2, 3), Int.getInt(4));
     }
 }
