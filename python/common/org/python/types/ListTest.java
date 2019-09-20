@@ -555,4 +555,12 @@ public class ListTest {
         List l = createList(1, 2);
         l.remove(Int.getInt(3));
     }
+
+    @Test
+    public void testReverse() {
+        List l = createList(1, 2, 3, 4, 5);
+        l.reverse();
+
+        assertEquals(createList(5, 4, 3, 2, 1), l);
+    }
 }
