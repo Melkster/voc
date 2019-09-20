@@ -5,6 +5,8 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertFalse;
 import org.junit.Test;
 
+import java.lang.reflect.Method;
+
 public class ListTest {
 
     private List createList(int ...values) {
@@ -562,5 +564,73 @@ public class ListTest {
         l.reverse();
 
         assertEquals(createList(5, 4, 3, 2, 1), l);
+    }
+
+    @Test
+    public void testSortInOrder() {
+        List l1 = createList(9, 4, 7);
+        List l2 = createList(new Str("beta"), new Str("theta"), new Str("alpha"));
+
+        l1.sort(null, null);
+        l2.sort(null, null);
+
+        assertEquals(createList(4, 7, 9), l1);
+        assertEquals(createList(new Str("alpha"), new Str("beta"), new Str("theta")), l2);
+    }
+
+    @Test
+    public void testSortReverse() {
+        List l1 = createList(9, 4, 7);
+        List l2 = createList(new Str("beta"), new Str("theta"), new Str("alpha"));
+
+        l1.sort(null, Bool.TRUE);
+        l2.sort(null, Bool.TRUE);
+
+        assertEquals(createList(9, 7, 4), l1);
+        assertEquals(createList(new Str("theta"), new Str("beta"), new Str("alpha")), l2);
+    }
+
+    public static org.python.Object second(org.python.Object obj) {
+        Str str = (Str) obj;
+        return str.__getitem__(Int.getInt(1));
+    }
+
+    private static org.python.types.Function getFunctionSecond() throws NoSuchMethodException {
+        java.lang.String[] args = {"obj"};
+        java.lang.String[] default_args = {};
+        java.lang.String[] kwonlyargs = {};
+
+        java.lang.Class listTestClass = ListTest.class;
+        java.lang.reflect.Method method = listTestClass.getMethod("second", org.python.Object.class);
+        final Function f = new Function(method, args, default_args, null, kwonlyargs, null);
+        return f;
+    }
+
+    @Test
+    public void testSortKey() {
+        List l = createList(new Str("abc"), new Str("bza"), new Str("cda"), new Str("daa"));
+
+        try {
+            final Function f = ListTest.getFunctionSecond();
+            l.sort((org.python.Object)f, null);
+    
+            assertEquals(createList(new Str("daa"), new Str("abc"), new Str("cda"), new Str("bza")), l);
+        } catch (NoSuchMethodException e) {
+            assertTrue(false);
+        }
+    }
+
+    @Test
+    public void testSortKeyReversed() {
+        List l = createList(new Str("abc"), new Str("bza"), new Str("cda"), new Str("daa"));
+
+        try {
+            final Function f = ListTest.getFunctionSecond();
+            l.sort((org.python.Object)f, Bool.TRUE);
+    
+            assertEquals(createList(new Str("bza"), new Str("cda"), new Str("abc"), new Str("daa")), l);
+        } catch (NoSuchMethodException e) {
+            assertTrue(false);
+        }
     }
 }
