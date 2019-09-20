@@ -50,7 +50,7 @@ public class timedelta extends org.python.types.Object {
         normalize(days, seconds, microseconds);
     }
 
-    @org.python.Method(__doc__ = "Creates empty timedelta", kwargs = "kwargs")
+    @org.python.Method(__doc__ = "A timedelta object represents a duration, the difference between two dates or times.\n", kwargs = "kwargs")
     public timedelta(org.python.Object[] args, java.util.Map<java.lang.String, org.python.Object> kwargs) {
         double days = 0;
         double seconds = 0;
@@ -122,7 +122,7 @@ public class timedelta extends org.python.types.Object {
     @org.python.Method(__doc__ = "Return the total number of seconds contained in the duration.\n"
             + " Equivalent to td / timedelta(seconds=1). For interval units \n"
             + "other than seconds, use the division form directly \n"
-            + "(e.g. td / timedelta(microseconds=1)).", args = {})
+            + "(e.g. td / timedelta(microseconds=1)).\n", args = {})
     public org.python.Object total_seconds() {
         // Regular double precision isn't enough! We need the big stuff
         BigDecimal daysInSeconds = BigDecimal.valueOf(days.value).multiply(BigDecimal.valueOf(24 * 60 * 60));
@@ -148,7 +148,7 @@ public class timedelta extends org.python.types.Object {
     }
 
     @Override
-    @org.python.Method(__doc__ = "Return self*value", args = { "other" })
+    @org.python.Method(__doc__ = "Return self*value\n", args = { "other" })
     public org.python.Object __mul__(org.python.Object other) {
         if (other instanceof org.python.types.Int || other instanceof org.python.types.Float) {
             double mult = getFloatvalue(other);
@@ -158,7 +158,7 @@ public class timedelta extends org.python.types.Object {
     }
 
     @Override
-    @org.python.Method(__doc__ = "Return self+value.", args = { "other" })
+    @org.python.Method(__doc__ = "Return self+value.\n", args = { "other" })
     public org.python.Object __add__(org.python.Object other) {
         if (other instanceof org.python.stdlib.datetime.timedelta) {
             timedelta otherTd = (timedelta) other;
