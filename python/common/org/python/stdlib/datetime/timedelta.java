@@ -89,7 +89,7 @@ public class timedelta extends org.python.types.Object {
             seconds += MAX_SECONDS;
             microseconds += MAX_MICROS + 1;
 
-            // IF we overflow MAX_SECONDS again
+            // If we overflow MAX_SECONDS again
             days += (long) (seconds / (24 * 60 * 60));
             seconds -= (long) (seconds / (24 * 60 * 60)) * 24 * 60 * 60;
         }
