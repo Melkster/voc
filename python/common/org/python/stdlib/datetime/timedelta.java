@@ -3,7 +3,6 @@ package org.python.stdlib.datetime;
 import java.math.BigDecimal;
 
 public class timedelta extends org.python.types.Object {
-
     private static final long MAX_DAYS = 999999999;
     private static final long MAX_SECONDS = 60 * 60 * 24 - 1;
     private static final long MAX_MICROS = 1000000 - 1;
