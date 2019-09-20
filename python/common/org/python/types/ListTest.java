@@ -472,4 +472,49 @@ public class ListTest {
 
         l.insert(createList(1, 2, 3), Int.getInt(4));
     }
+    
+    @Test
+    public void testPopNoIndex() {
+        List l = createList(1, 2, 3);
+
+        assertEquals(Int.getInt(3), l.pop(null));
+        assertEquals(Int.getInt(2), l.__len__());
+    }
+    
+    @Test
+    public void testPopZeroIndex() {
+        List l = createList(1, 2, 3);
+
+        assertEquals(Int.getInt(1), l.pop(Int.getInt(0)));
+        assertEquals(Int.getInt(2), l.__len__());
+    }
+    
+    @Test
+    public void testPopNegativeIndex() {
+        List l = createList(1, 2, 3);
+
+        assertEquals(Int.getInt(2), l.pop(Int.getInt(-2)));
+        assertEquals(Int.getInt(2), l.__len__());
+    }
+    
+    @Test(expected = org.python.exceptions.IndexError.class)
+    public void testPopEmptyList() {
+        List l = new List();
+
+        l.pop(null);
+    }
+
+    @Test(expected = org.python.exceptions.IndexError.class)
+    public void testPopIndexTooLarge() {
+        List l = createList(1, 2, 3);
+
+        l.pop(Int.getInt(3));
+    }
+
+    @Test(expected = org.python.exceptions.IndexError.class)
+    public void testPopIndexTooSmall() {
+        List l = createList(1, 2, 3);
+
+        l.pop(Int.getInt(-4));
+    }
 }
