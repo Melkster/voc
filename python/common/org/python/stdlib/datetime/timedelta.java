@@ -7,13 +7,17 @@ public class timedelta extends org.python.types.Object {
     private static final long MAX_DAYS = 999999999;
     private static final long MAX_SECONDS = 60 * 60 * 24 - 1;
     private static final long MAX_MICROS = 1000000 - 1;
+    private static final long RESOLUTION_DAYS = 0;
+    private static final long RESOLUTION_SECONDS = 0;
+    private static final long RESOLUTION_MICROS = 1;
 
     @org.python.Attribute
     public final static org.python.Object min = new timedelta(-MAX_DAYS, 0, 0);
     @org.python.Attribute
     public final static org.python.Object max = new timedelta(MAX_DAYS, MAX_SECONDS, MAX_MICROS);
     @org.python.Attribute
-    public final static org.python.Object resolution = new timedelta(0, 0, 1);
+    public final static org.python.Object resolution = new timedelta(RESOLUTION_DAYS, RESOLUTION_SECONDS,
+            RESOLUTION_MICROS);
 
     @org.python.Attribute
     public org.python.types.Int days;
@@ -146,31 +150,22 @@ public class timedelta extends org.python.types.Object {
     }
 
     @Override
-    @org.python.Method(
-            __doc__ = "Return self*value",
-            args = {"other"}
-    )
+    @org.python.Method(__doc__ = "Return self*value", args = { "other" })
     public org.python.Object __mul__(org.python.Object other) {
         if (other instanceof org.python.types.Int || other instanceof org.python.types.Float) {
             double mult = getFloatvalue(other);
-            return new timedelta(mult * this.days.value,
-                    this.seconds.value * mult, 
-                    this.microseconds.value * mult);
+            return new timedelta(mult * this.days.value, this.seconds.value * mult, this.microseconds.value * mult);
         }
         return super.__mul__(other);
     }
 
     @Override
-    @org.python.Method(
-            __doc__ = "Return self+value.",
-            args = {"other"}
-    )
+    @org.python.Method(__doc__ = "Return self+value.", args = { "other" })
     public org.python.Object __add__(org.python.Object other) {
         if (other instanceof org.python.stdlib.datetime.timedelta) {
             timedelta otherTd = (timedelta) other;
-            return new timedelta(this.days.value + otherTd.days.value, 
-                                this.seconds.value + otherTd.seconds.value,
-                                this.microseconds.value + otherTd.microseconds.value);
+            return new timedelta(this.days.value + otherTd.days.value, this.seconds.value + otherTd.seconds.value,
+                    this.microseconds.value + otherTd.microseconds.value);
         } else {
             return super.__add__(other);
         }
