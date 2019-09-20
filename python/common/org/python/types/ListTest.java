@@ -117,7 +117,7 @@ public class ListTest {
 
         Set s1 = new Set(s);
 
-        java.util.Map<java.lang.String, org.python.Object> kwargs = new java.util.HashMap<java.lang.String, org.python.Object>();
+      /*  java.util.Map<java.lang.String, org.python.Object> kwargs = new java.util.HashMap<java.lang.String, org.python.Object>();
         org.python.Object[] args = {s};
 
         List l2 = new List(args, kwargs);
@@ -125,6 +125,51 @@ public class ListTest {
         assertEquals(Int.getInt(1), l2.value.get(0));
         assertEquals(Int.getInt(2), l2.value.get(1));
         assertEquals(Int.getInt(3), l2.value.get(2));
+        */
+    }
+
+    /*
+     * __bool__()
+     */
+
+    @Test()
+    public void __bool__empty() {
+        List l1 = new List();
+
+        assertEquals(org.python.types.Bool.FALSE, l1.__bool__());
+    }
+
+    @Test()
+    public void __bool__str() {
+        List l1 = new List();
+
+        l1.append(new Str("foo"));
+        assertEquals(org.python.types.Bool.TRUE, l1.__bool__());
+    }
+
+    @Test()
+    public void __bool__multipleTypes() {
+        List l1 = new List();
+
+        l1.append(new Str("foo"));
+        l1.append(Int.getInt(0));
+        l1.append(new List());
+        assertEquals(Bool.TRUE, l1.__bool__());
+    }
+
+    @Test()
+    public void __bool__None() {
+        List l1 = new List();
+
+        l1.append(NoneType.NONE);
+        assertEquals(Bool.TRUE, l1.__bool__());
+    }
+
+    @Test()
+    public void __bool__EmptyList() {
+        List l1 = new List();
+
+        l1.append(new List());
+        assertEquals(Bool.TRUE, l1.__bool__());
     }
 }
-
