@@ -58,7 +58,7 @@ public class ListTest {
 
         assertEquals(Int.getInt(1), l1.__len__());
         assertEquals(Int.getInt(1), l2.__len__());
-        
+
         l1.__iadd__(l2);
 
         assertEquals(Int.getInt(1), l1.__getitem__(Int.getInt(0)));
@@ -84,6 +84,47 @@ public class ListTest {
         assertEquals(Int.getInt(1), l2.__getitem__(Int.getInt(1)));
         assertEquals(Int.getInt(2), l2.__len__());
         assertEquals(Int.getInt(1), l1.__len__());
+    }
+
+    @Test()
+    public void List_empty() {
+        assertNotNull(new List());
+        assertEquals(Int.getInt(0), new List().__len__());
+    }
+
+    @Test()
+    public void List_withList() {
+        List l1 = new List();
+        l1.append(Int.getInt(1));
+        l1.append(Int.getInt(2));
+        l1.append(Int.getInt(3));
+
+        java.util.Map<java.lang.String, org.python.Object> kwargs = new java.util.HashMap<java.lang.String, org.python.Object>();
+        org.python.Object[] args = {l1};
+
+        List l2 = new List(args, kwargs);
+
+        assertEquals(Int.getInt(1), l2.value.get(0));
+        assertEquals(Int.getInt(2), l2.value.get(1));
+        assertEquals(Int.getInt(3), l2.value.get(2));
+    }
+
+    @Test()
+    public void List_withSet() {
+        java.util.Set<org.python.Object> s = new java.util.HashSet<org.python.Object>();
+        s.add(Int.getInt(1));
+        s.add(Int.getInt(2));
+
+        Set s1 = new Set(s);
+
+        java.util.Map<java.lang.String, org.python.Object> kwargs = new java.util.HashMap<java.lang.String, org.python.Object>();
+        org.python.Object[] args = {s};
+
+        List l2 = new List(args, kwargs);
+
+        assertEquals(Int.getInt(1), l2.value.get(0));
+        assertEquals(Int.getInt(2), l2.value.get(1));
+        assertEquals(Int.getInt(3), l2.value.get(2));
     }
 }
 
