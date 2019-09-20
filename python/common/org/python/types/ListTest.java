@@ -112,20 +112,30 @@ public class ListTest {
     @Test()
     public void List_withSet() {
         java.util.Set<org.python.Object> s = new java.util.HashSet<org.python.Object>();
-        s.add(Int.getInt(1));
-        s.add(Int.getInt(2));
+        Int i1 = Int.getInt(1);
+        Int i2 = Int.getInt(2);
 
-        Set s1 = new Set(s);
+        s.add(i1);
+        s.add(i2);
 
-      /*  java.util.Map<java.lang.String, org.python.Object> kwargs = new java.util.HashMap<java.lang.String, org.python.Object>();
-        org.python.Object[] args = {s};
+        org.python.Object[] args = {new org.python.types.Set(s)};
+        java.util.Map<java.lang.String, org.python.Object> kwargs = new java.util.HashMap<java.lang.String, org.python.Object>();
 
-        List l2 = new List(args, kwargs);
+        List l1 = new List(args, kwargs); // kwargs doesn't seem to be used by List but let's pass them anyway
 
-        assertEquals(Int.getInt(1), l2.value.get(0));
-        assertEquals(Int.getInt(2), l2.value.get(1));
-        assertEquals(Int.getInt(3), l2.value.get(2));
-        */
+        assertEquals(Int.getInt(2), l1.__len__());
+        assertEquals(i1, l1.__contains__(i1));
+        assertEquals(i1, l1.__contains__(i2));
+    }
+
+    @Test()
+    public void List_withEmptySet() {
+        org.python.Object[] args = {new org.python.types.Set()};
+        java.util.Map<java.lang.String, org.python.Object> kwargs = new java.util.HashMap<java.lang.String, org.python.Object>();
+
+        List l1 = new List(args, kwargs); // kwargs doesn't seem to be used by List but let's pass them anyway
+
+        assertEquals(Int.getInt(0), l1.__len__());
     }
 
     /*
