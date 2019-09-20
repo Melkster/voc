@@ -15,6 +15,14 @@ public class ListTest {
         return l;
     }
 
+    private List createList(org.python.types.Object ...values) {
+        List l = new List();
+        for (org.python.types.Object value : values) {
+            l.append(value);
+        }
+        return l;
+    }
+
     @Test
     public void testSetItemInteger() {
         List l = createList(1);
@@ -516,5 +524,35 @@ public class ListTest {
         List l = createList(1, 2, 3);
 
         l.pop(Int.getInt(-4));
+    }
+    
+    @Test
+    public void testRemoveInteger() {
+        List l = createList(1, 2, 3);
+        l.remove(Int.getInt(1));
+
+        assertEquals(createList(2, 3), l);
+    }
+    
+    @Test
+    public void testRemoveFirstDuplicate() {
+        List l = createList(1, 2, 2, 3, 2);
+        l.remove(Int.getInt(2));
+
+        assertEquals(createList(1, 2, 3, 2), l);
+    }
+    
+    @Test
+    public void testRemoveBoolean() {
+        List l = createList(Bool.TRUE, Bool.FALSE, Bool.TRUE, Bool.FALSE);
+        l.remove(Int.getInt(1));
+
+        assertEquals(createList(Bool.FALSE, Bool.TRUE, Bool.FALSE), l);
+    }
+    
+    @Test(expected = org.python.exceptions.ValueError.class)
+    public void testRemoveNotInList() {
+        List l = createList(1, 2);
+        l.remove(Int.getInt(3));
     }
 }
