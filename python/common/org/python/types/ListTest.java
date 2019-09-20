@@ -25,7 +25,7 @@ public class ListTest {
     }
 
     @Test
-    public void testSetItemInteger() {
+    public void SetItemInteger() {
         List l = createList(1);
 
         l.__setitem__(Int.getInt(0), Int.getInt(5));
@@ -33,7 +33,7 @@ public class ListTest {
     }
 
     @Test
-    public void testSetItemString() {
+    public void SetItemString() {
         List l = createList(1, 2, 3);
 
         l.__setitem__(Int.getInt(1), new Str("hello"));
@@ -44,20 +44,20 @@ public class ListTest {
     }
 
     @Test(expected = org.python.exceptions.IndexError.class)
-    public void testSetItemOutOfBound() {
+    public void SetItemOutOfBound() {
         List l = new List();
         l.__setitem__(Int.getInt(0), Int.getInt(5));
     }
 
     @Test(expected = org.python.exceptions.IndexError.class)
-    public void testSetItemOutOfBoundsNegativeIndex() {
+    public void SetItemOutOfBoundsNegativeIndex() {
         List l = createList(1);
 
         l.__setitem__(Int.getInt(-2), Int.getInt(5));
     }
 
     @Test
-    public void testDelItem() {
+    public void DelItem() {
         List l = createList(1, 2, 3);
 
         l.__delitem__(Int.getInt(1));
@@ -67,41 +67,41 @@ public class ListTest {
     }
 
     @Test(expected = org.python.exceptions.IndexError.class)
-    public void testDelItemOutOfBounds() {
+    public void DelItemOutOfBounds() {
         List l = new List();
         l.__delitem__(Int.getInt(0));
     }
 
     @Test
-    public void testIterator() {
+    public void Iterator() {
         List l = new List();
         org.python.Object iter = l.__iter__();
         assertTrue(iter instanceof List_Iterator);
     }
 
     @Test
-    public void testReversed() {
+    public void Reversed() {
         List l = new List();
         org.python.Object reversedIter = l.__reversed__();
         assertTrue(reversedIter instanceof List_ReverseIterator);
     }
 
     @Test
-    public void testContains() {
+    public void Contains() {
         List l = createList(1, 2, 3, 4, 5);
 
         assertTrue(l.__contains__(Int.getInt(1)).toBoolean());
     }
 
     @Test
-    public void testContainsDoesntExist() {
+    public void ContainsDoesntExist() {
         List l = createList(1, 2, 3, 4, 5);
 
         assertFalse(l.__contains__(Int.getInt(0)).toBoolean());
     }
 
     @Test
-    public void testContainsBool() {
+    public void ContainsBool() {
         List l = new List();
         l.append(Bool.getBool(true));
         l.append(Bool.getBool(false));
@@ -113,7 +113,7 @@ public class ListTest {
     }
 
     @Test
-    public void testAdd() {
+    public void Add() {
         List l = new List();
         l.append(Int.getInt(1));
         List m = new List();
@@ -125,7 +125,7 @@ public class ListTest {
     }
 
     @Test
-    public void testMulWithInteger() {
+    public void MulWithInteger() {
         List l = createList(1, 2, 3);
 
         List m = (List) l.__mul__(Int.getInt(2));
@@ -136,7 +136,7 @@ public class ListTest {
     }
 
     @Test
-    public void testMulEmpty() {
+    public void MulEmpty() {
         List l = new List();
 
         List mul = (List) l.__mul__(Int.getInt(2));
@@ -145,7 +145,7 @@ public class ListTest {
     }
 
     @Test
-    public void testMulBoolTrue() {
+    public void MulBoolTrue() {
         List l = createList(1, 2);
 
         List mulTrue = (List) l.__mul__(Bool.getBool(true));
@@ -155,7 +155,7 @@ public class ListTest {
     }
 
     @Test
-    public void testMulBoolFalse() {
+    public void MulBoolFalse() {
         List l = createList(1, 2);
 
         List mulFalse = (List) l.__mul__(Bool.getBool(false));
@@ -164,7 +164,7 @@ public class ListTest {
     }
 
     @Test
-    public void testIMulWithInteger() {
+    public void IMulWithInteger() {
         List l = createList(1, 2, 3);
 
         List m = (List) l.__imul__(Int.getInt(2));
@@ -175,7 +175,7 @@ public class ListTest {
     }
 
     @Test
-    public void testIMulEmpty() {
+    public void IMulEmpty() {
         List l = new List();
 
         List mul = (List) l.__imul__(Int.getInt(2));
@@ -184,7 +184,7 @@ public class ListTest {
     }
 
     @Test
-    public void testIMulBoolTrue() {
+    public void IMulBoolTrue() {
         List l = createList(1, 2);
 
         List mulTrue = (List) l.__imul__(Bool.getBool(true));
@@ -194,7 +194,7 @@ public class ListTest {
     }
 
     @Test
-    public void testIMulBoolFalse() {
+    public void IMulBoolFalse() {
         List l = createList(1, 2);
 
         List mulFalse = (List) l.__imul__(Bool.getBool(false));
@@ -203,7 +203,7 @@ public class ListTest {
     }
 
     @Test
-    public void testAppend() {
+    public void Append() {
         List l = new List();
         l.append(Int.getInt(1));
         l.append(new Str("a string"));
@@ -215,7 +215,7 @@ public class ListTest {
     }
 
     @Test
-    public void testClear() {
+    public void Clear() {
         List l = new List();
         l.append(Int.getInt(1));
         l.append(new Str("a string"));
@@ -227,7 +227,7 @@ public class ListTest {
     }
 
     @Test
-    public void testClearEmpty() {
+    public void ClearEmpty() {
         List l = new List();
 
         assertEquals(Int.getInt(0), l.__len__());
@@ -236,7 +236,7 @@ public class ListTest {
     }
 
     @Test
-    public void testCopy() {
+    public void Copy() {
         List l = new List();
         l.append(Int.getInt(1));
         l.append(new Str("a string"));
@@ -257,7 +257,7 @@ public class ListTest {
     }
 
     @Test
-    public void testCount() {
+    public void Count() {
         List l = new List();
         l.append(Int.getInt(1));
         l.append(Int.getInt(1));
@@ -272,7 +272,7 @@ public class ListTest {
     }
 
     @Test
-    public void testExtendList() {
+    public void ExtendList() {
         List l = new List();
         l.append(Int.getInt(1));
 
@@ -287,7 +287,7 @@ public class ListTest {
     }
 
     @Test
-    public void testExtendTuple() {
+    public void ExtendTuple() {
         List l = new List();
         l.append(Int.getInt(1));
 
@@ -303,7 +303,7 @@ public class ListTest {
     }
 
     @Test
-    public void testExtendSet() {
+    public void ExtendSet() {
         List l = new List();
         l.append(Int.getInt(1));
 
@@ -319,7 +319,7 @@ public class ListTest {
     }
 
     @Test
-    public void testExtendFrozenSet() {
+    public void ExtendFrozenSet() {
         List l = new List();
         l.append(Int.getInt(1));
 
@@ -335,7 +335,7 @@ public class ListTest {
     }
 
     @Test
-    public void testExtendDict() {
+    public void ExtendDict() {
         List l = new List();
         l.append(Int.getInt(1));
 
@@ -350,7 +350,7 @@ public class ListTest {
     }
 
     @Test
-    public void testIndex() {
+    public void Index() {
         List l = new List();
         l.append(new Str("a"));
         l.append(new Str("b"));
@@ -360,42 +360,42 @@ public class ListTest {
     }
 
     @Test
-    public void testIndexStart() {
+    public void IndexStart() {
         List l = createList(1, 2, 3);
 
         assertEquals(Int.getInt(1), l.index(Int.getInt(2), Int.getInt(1), null));
     }
 
     @Test(expected = org.python.exceptions.ValueError.class)
-    public void testIndexStartAfterValue() {
+    public void IndexStartAfterValue() {
         List l = createList(1, 2, 3);
 
         l.index(Int.getInt(1), Int.getInt(1), null);
     }
 
     @Test
-    public void testIndexStartEnd() {
+    public void IndexStartEnd() {
         List l = createList(1, 2, 3);
 
         assertEquals(Int.getInt(1), l.index(Int.getInt(2), Int.getInt(0), l.__len__()));
     }
 
     @Test(expected = org.python.exceptions.ValueError.class)
-    public void testIndexStartEndBeforeValue() {
+    public void IndexStartEndBeforeValue() {
         List l = createList(1, 2, 3);
 
         l.index(Int.getInt(3), Int.getInt(0), Int.getInt(2));
     }
 
     @Test(expected = org.python.exceptions.ValueError.class)
-    public void testIndexNotFound() {
+    public void IndexNotFound() {
         List l = createList(1, 2, 3);
 
         l.index(Int.getInt(5), null, null);
     }
 
     @Test
-    public void testInsertFirst() {
+    public void InsertFirst() {
         List l = createList(1, 2, 3);
 
         l.insert(Int.getInt(0), Int.getInt(4));
@@ -403,7 +403,7 @@ public class ListTest {
     }
 
     @Test
-    public void testInsertSecond() {
+    public void InsertSecond() {
         List l = createList(1, 2, 3);
 
         l.insert(Int.getInt(1), Int.getInt(5));
@@ -411,7 +411,7 @@ public class ListTest {
     }
 
     @Test
-    public void testInsertLast() {
+    public void InsertLast() {
         List l = createList(1, 2, 3);
 
         l.insert(l.__len__(), Int.getInt(6));
@@ -419,7 +419,7 @@ public class ListTest {
     }
 
     @Test
-    public void testInsertAboveLast() {
+    public void InsertAboveLast() {
         List l = createList(1, 2, 3);
 
         l.insert(Int.getInt(200), Int.getInt(7));
@@ -427,7 +427,7 @@ public class ListTest {
     }
 
     @Test
-    public void testInsertNegativeOne() {
+    public void InsertNegativeOne() {
         List l = createList(1, 2, 3);
 
         l.insert(Int.getInt(-1), Int.getInt(8));
@@ -435,7 +435,7 @@ public class ListTest {
     }
 
     @Test
-    public void testInsertNegativeLength() {
+    public void InsertNegativeLength() {
         List l = createList(1, 2, 3);
 
         l.insert(Int.getInt(-l.__len__().value), Int.getInt(9));
@@ -443,7 +443,7 @@ public class ListTest {
     }
 
     @Test
-    public void testInsertNegativeAbove() {
+    public void InsertNegativeAbove() {
         List l = createList(1, 2, 3);
 
         l.insert(Int.getInt(-200), Int.getInt(10));
@@ -451,7 +451,7 @@ public class ListTest {
     }
 
     @Test
-    public void testInsertString() {
+    public void InsertString() {
         List l = createList(1, 2, 3);
 
         l.insert(Int.getInt(0), new Str("hello"));
@@ -459,7 +459,7 @@ public class ListTest {
     }
 
     @Test
-    public void testInsertList() {
+    public void InsertList() {
         List l = createList(1, 2, 3);
 
         List innerList = createList(1, 2);
@@ -469,21 +469,21 @@ public class ListTest {
     }
 
     @Test(expected = org.python.exceptions.TypeError.class)
-    public void testInsertCharIndex() {
+    public void InsertCharIndex() {
         List l = createList(1, 2, 3);
 
         l.insert(new Str('a'), Int.getInt(4));
     }
 
     @Test(expected = org.python.exceptions.TypeError.class)
-    public void testInsertListIndex() {
+    public void InsertListIndex() {
         List l = createList(1, 2, 3);
 
         l.insert(createList(1, 2, 3), Int.getInt(4));
     }
 
     @Test
-    public void testPopNoIndex() {
+    public void PopNoIndex() {
         List l = createList(1, 2, 3);
 
         assertEquals(Int.getInt(3), l.pop(null));
@@ -491,7 +491,7 @@ public class ListTest {
     }
 
     @Test
-    public void testPopZeroIndex() {
+    public void PopZeroIndex() {
         List l = createList(1, 2, 3);
 
         assertEquals(Int.getInt(1), l.pop(Int.getInt(0)));
@@ -499,7 +499,7 @@ public class ListTest {
     }
 
     @Test
-    public void testPopNegativeIndex() {
+    public void PopNegativeIndex() {
         List l = createList(1, 2, 3);
 
         assertEquals(Int.getInt(2), l.pop(Int.getInt(-2)));
@@ -507,28 +507,28 @@ public class ListTest {
     }
 
     @Test(expected = org.python.exceptions.IndexError.class)
-    public void testPopEmptyList() {
+    public void PopEmptyList() {
         List l = new List();
 
         l.pop(null);
     }
 
     @Test(expected = org.python.exceptions.IndexError.class)
-    public void testPopIndexTooLarge() {
+    public void PopIndexTooLarge() {
         List l = createList(1, 2, 3);
 
         l.pop(Int.getInt(3));
     }
 
     @Test(expected = org.python.exceptions.IndexError.class)
-    public void testPopIndexTooSmall() {
+    public void PopIndexTooSmall() {
         List l = createList(1, 2, 3);
 
         l.pop(Int.getInt(-4));
     }
 
     @Test
-    public void testRemoveInteger() {
+    public void RemoveInteger() {
         List l = createList(1, 2, 3);
         l.remove(Int.getInt(1));
 
@@ -536,7 +536,7 @@ public class ListTest {
     }
 
     @Test
-    public void testRemoveFirstDuplicate() {
+    public void RemoveFirstDuplicate() {
         List l = createList(1, 2, 2, 3, 2);
         l.remove(Int.getInt(2));
 
@@ -544,7 +544,7 @@ public class ListTest {
     }
 
     @Test
-    public void testRemoveBoolean() {
+    public void RemoveBoolean() {
         List l = createList(Bool.TRUE, Bool.FALSE, Bool.TRUE, Bool.FALSE);
         l.remove(Int.getInt(1));
 
@@ -552,13 +552,13 @@ public class ListTest {
     }
 
     @Test(expected = org.python.exceptions.ValueError.class)
-    public void testRemoveNotInList() {
+    public void RemoveNotInList() {
         List l = createList(1, 2);
         l.remove(Int.getInt(3));
     }
 
     @Test
-    public void testReverse() {
+    public void Reverse() {
         List l = createList(1, 2, 3, 4, 5);
         l.reverse();
 
@@ -566,7 +566,7 @@ public class ListTest {
     }
 
     @Test
-    public void testSortInOrder() {
+    public void SortInOrder() {
         List l1 = createList(9, 4, 7);
         List l2 = createList(new Str("beta"), new Str("theta"), new Str("alpha"));
 
@@ -578,7 +578,7 @@ public class ListTest {
     }
 
     @Test
-    public void testSortReverse() {
+    public void SortReverse() {
         List l1 = createList(9, 4, 7);
         List l2 = createList(new Str("beta"), new Str("theta"), new Str("alpha"));
 
@@ -606,7 +606,7 @@ public class ListTest {
     }
 
     @Test
-    public void testSortKey() {
+    public void SortKey() {
         List l = createList(new Str("abc"), new Str("bza"), new Str("cda"), new Str("daa"));
 
         try {
@@ -620,7 +620,7 @@ public class ListTest {
     }
 
     @Test
-    public void testSortKeyReversed() {
+    public void SortKeyReversed() {
         List l = createList(new Str("abc"), new Str("bza"), new Str("cda"), new Str("daa"));
 
         try {
