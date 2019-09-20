@@ -5,7 +5,6 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertFalse;
 import org.junit.Test;
 
-import java.lang.reflect.Method;
 
 public class ListTest {
 
@@ -410,7 +409,7 @@ public class ListTest {
         l.insert(Int.getInt(1), Int.getInt(5));
         assertEquals(Int.getInt(5), l.__getitem__(Int.getInt(1)));
     }
-    
+
     @Test
     public void testInsertLast() {
         List l = createList(1, 2, 3);
@@ -426,7 +425,7 @@ public class ListTest {
         l.insert(Int.getInt(200), Int.getInt(7));
         assertEquals(Int.getInt(7), l.__getitem__(Int.getInt(3)));
     }
-    
+
     @Test
     public void testInsertNegativeOne() {
         List l = createList(1, 2, 3);
@@ -434,7 +433,7 @@ public class ListTest {
         l.insert(Int.getInt(-1), Int.getInt(8));
         assertEquals(Int.getInt(8), l.__getitem__(Int.getInt(2)));
     }
-    
+
     @Test
     public void testInsertNegativeLength() {
         List l = createList(1, 2, 3);
@@ -442,7 +441,7 @@ public class ListTest {
         l.insert(Int.getInt(-l.__len__().value), Int.getInt(9));
         assertEquals(Int.getInt(9), l.__getitem__(Int.getInt(0)));
     }
-    
+
     @Test
     public void testInsertNegativeAbove() {
         List l = createList(1, 2, 3);
@@ -450,7 +449,7 @@ public class ListTest {
         l.insert(Int.getInt(-200), Int.getInt(10));
         assertEquals(Int.getInt(10), l.__getitem__(Int.getInt(0)));
     }
-    
+
     @Test
     public void testInsertString() {
         List l = createList(1, 2, 3);
@@ -458,7 +457,7 @@ public class ListTest {
         l.insert(Int.getInt(0), new Str("hello"));
         assertEquals(new Str("hello"), l.__getitem__(Int.getInt(0)));
     }
-    
+
     @Test
     public void testInsertList() {
         List l = createList(1, 2, 3);
@@ -468,21 +467,21 @@ public class ListTest {
         l.insert(Int.getInt(0), innerList);
         assertEquals(createList(1, 2), l.__getitem__(Int.getInt(0)));
     }
-    
+
     @Test(expected = org.python.exceptions.TypeError.class)
     public void testInsertCharIndex() {
         List l = createList(1, 2, 3);
 
         l.insert(new Str('a'), Int.getInt(4));
     }
-    
+
     @Test(expected = org.python.exceptions.TypeError.class)
     public void testInsertListIndex() {
         List l = createList(1, 2, 3);
 
         l.insert(createList(1, 2, 3), Int.getInt(4));
     }
-    
+
     @Test
     public void testPopNoIndex() {
         List l = createList(1, 2, 3);
@@ -490,7 +489,7 @@ public class ListTest {
         assertEquals(Int.getInt(3), l.pop(null));
         assertEquals(Int.getInt(2), l.__len__());
     }
-    
+
     @Test
     public void testPopZeroIndex() {
         List l = createList(1, 2, 3);
@@ -498,7 +497,7 @@ public class ListTest {
         assertEquals(Int.getInt(1), l.pop(Int.getInt(0)));
         assertEquals(Int.getInt(2), l.__len__());
     }
-    
+
     @Test
     public void testPopNegativeIndex() {
         List l = createList(1, 2, 3);
@@ -506,7 +505,7 @@ public class ListTest {
         assertEquals(Int.getInt(2), l.pop(Int.getInt(-2)));
         assertEquals(Int.getInt(2), l.__len__());
     }
-    
+
     @Test(expected = org.python.exceptions.IndexError.class)
     public void testPopEmptyList() {
         List l = new List();
@@ -527,7 +526,7 @@ public class ListTest {
 
         l.pop(Int.getInt(-4));
     }
-    
+
     @Test
     public void testRemoveInteger() {
         List l = createList(1, 2, 3);
@@ -535,7 +534,7 @@ public class ListTest {
 
         assertEquals(createList(2, 3), l);
     }
-    
+
     @Test
     public void testRemoveFirstDuplicate() {
         List l = createList(1, 2, 2, 3, 2);
@@ -543,7 +542,7 @@ public class ListTest {
 
         assertEquals(createList(1, 2, 3, 2), l);
     }
-    
+
     @Test
     public void testRemoveBoolean() {
         List l = createList(Bool.TRUE, Bool.FALSE, Bool.TRUE, Bool.FALSE);
@@ -551,7 +550,7 @@ public class ListTest {
 
         assertEquals(createList(Bool.FALSE, Bool.TRUE, Bool.FALSE), l);
     }
-    
+
     @Test(expected = org.python.exceptions.ValueError.class)
     public void testRemoveNotInList() {
         List l = createList(1, 2);
@@ -612,8 +611,8 @@ public class ListTest {
 
         try {
             final Function f = ListTest.getFunctionSecond();
-            l.sort((org.python.Object)f, null);
-    
+            l.sort((org.python.Object) f, null);
+
             assertEquals(createList(new Str("daa"), new Str("abc"), new Str("cda"), new Str("bza")), l);
         } catch (NoSuchMethodException e) {
             assertTrue(false);
@@ -626,8 +625,8 @@ public class ListTest {
 
         try {
             final Function f = ListTest.getFunctionSecond();
-            l.sort((org.python.Object)f, Bool.TRUE);
-    
+            l.sort((org.python.Object) f, Bool.TRUE);
+
             assertEquals(createList(new Str("bza"), new Str("cda"), new Str("abc"), new Str("daa")), l);
         } catch (NoSuchMethodException e) {
             assertTrue(false);
