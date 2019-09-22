@@ -31,8 +31,13 @@ public class timedelta extends org.python.types.Object {
         boolean hasKeyword = kwargs.containsKey(keyword);
 
         if (hasPositional && hasKeyword) {
-            throw new org.python.exceptions.TypeError(
-                    String.format("Argument given by name ('%s') and position (%d)", keyword, position + 1));
+            if (org.Python.VERSION < 0x3070000) {
+                throw new org.python.exceptions.TypeError(
+                        String.format("Argument given by name ('%s') and position (%d)", keyword, position + 1));
+            } else {
+                throw new org.python.exceptions.TypeError(
+                        String.format("argument for __new__() given by name ('%s') and position (%d)", keyword, position + 1));
+            }
         } else if (hasPositional) {
             return getFloatvalue(args[position]);
         } else if (hasKeyword) {
