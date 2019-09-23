@@ -1,9 +1,9 @@
- .PHONY: test compile coverage
+.PHONY: test compile coverage
 
 SUPPORT_LIBRARY = support_libraries
 JAVA_ROOT = build/java
 
-compile
+compile:
 	ant java
 
 test: compile
