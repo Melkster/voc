@@ -22,3 +22,6 @@ tests/tmp*
 .DS_Store
 .idea/
 .vscode
+
+jacoco.exec
+report/
