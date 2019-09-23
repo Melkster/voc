@@ -11,11 +11,11 @@ public class timedelta extends org.python.types.Object {
     private static final long RESOLUTION_MICROS = 1;
 
     @org.python.Attribute
-    public final static org.python.Object min = new timedelta(-MAX_DAYS, 0, 0);
+    public static final org.python.Object min = new timedelta(-MAX_DAYS, 0, 0);
     @org.python.Attribute
-    public final static org.python.Object max = new timedelta(MAX_DAYS, MAX_SECONDS, MAX_MICROS);
+    public static final org.python.Object max = new timedelta(MAX_DAYS, MAX_SECONDS, MAX_MICROS);
     @org.python.Attribute
-    public final static org.python.Object resolution = new timedelta(RESOLUTION_DAYS, RESOLUTION_SECONDS,
+    public static final org.python.Object resolution = new timedelta(RESOLUTION_DAYS, RESOLUTION_SECONDS,
             RESOLUTION_MICROS);
 
     @org.python.Attribute
