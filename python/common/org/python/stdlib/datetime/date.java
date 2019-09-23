@@ -3,19 +3,19 @@ package org.python.stdlib.datetime;
 import java.time.YearMonth;
 
 public class date extends org.python.types.Object {
-    public final static int MIN_YEAR = 1;
-    public final static int MAX_YEAR = 9999;
-    public final static int MIN_MONTH = 0;
-    public final static int MAX_MONTH = 11;
-    public final static int MIN_DAY = 1;
-    public final static int MAX_DAY = 31;
+    public static final int MIN_YEAR = 1;
+    public static final int MAX_YEAR = 9999;
+    public static final int MIN_MONTH = 0;
+    public static final int MAX_MONTH = 11;
+    public static final int MIN_DAY = 1;
+    public static final int MAX_DAY = 31;
 
     @org.python.Attribute()
-    public final static date min = new date(MIN_YEAR, MIN_MONTH, MIN_DAY);
+    public static final date min = new date(MIN_YEAR, MIN_MONTH, MIN_DAY);
     @org.python.Attribute()
-    public final static date max = new date(MAX_YEAR, MAX_MONTH, MAX_DAY);
+    public static final date max = new date(MAX_YEAR, MAX_MONTH, MAX_DAY);
     @org.python.Attribute()
-    public final static date resolution = null; // TODO: implement `resolution` when timedelta is implemented
+    public static final date resolution = null; // TODO: implement `resolution` when timedelta is implemented
 
     public java.util.GregorianCalendar value;
 
@@ -26,7 +26,7 @@ public class date extends org.python.types.Object {
     @org.python.Attribute()
     public final int day;
 
-    private final static java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd");
+    private static final java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd");
 
     public int hashCode() {
         return this.value.hashCode();
@@ -35,8 +35,7 @@ public class date extends org.python.types.Object {
     @org.python.Method(
             __doc__ = "date(year, month, day) -> date" +
                 "\n" +
-                "Return new date of the format yyyy-MM-dd\n"
-            ,
+                "Return new date of the format yyyy-MM-dd\n",
             args = {"year, month, day"}
     )
     public date(org.python.Object[] args, java.util.Map<java.lang.String, org.python.Object> kwargs) {
@@ -138,12 +137,13 @@ public class date extends org.python.types.Object {
             int v = (int) ((org.python.types.Int) (obj).__int__()).value;
 
 
-            if (keyStr.value.equals("year"))
+            if (keyStr.value.equals("year")) {
                 y = v;
-            else if (keyStr.value.equals("month"))
+            } else if (keyStr.value.equals("month")) {
                 m = v;
-            else if (keyStr.value.equals("day"))
+            } else if (keyStr.value.equals("day")) {
                 d = v;
+            }
         }
 
         return new date(y, m - 1, d);
