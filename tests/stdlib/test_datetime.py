@@ -1,7 +1,204 @@
 from ..utils import TranspileTestCase
-
+from unittest import expectedFailure
 
 class DatetimeModuleTests(TranspileTestCase):
+    def test_date_constructor(self):
+        self.assertCodeExecution("""
+            import datetime
+            print(datetime.date(2000, 2, 1))
+            print(datetime.date(1, 1, 1))
+            print(datetime.date(9999, 12, 31))
+        """)
+
+    def test_date_constructor_invalid(self):
+        self.assertCodeExecution("""
+            import datetime
+            try:
+                datetime.date(-10, 1, 1)
+            except ValueError as e:
+                print(e)
+            try:
+                datetime.date(1, -11, 1)
+            except ValueError as e:
+                print(e)
+            try:
+                datetime.date(1, 1, -12)
+            except ValueError as e:
+                print(e)
+            try:
+                datetime.date(2019, 9, -1)
+            except ValueError as e:
+                print(e)
+            try:
+                datetime.date(2019, 9, 31)
+            except ValueError as e:
+                print(e)
+            try:
+                datetime.date(1, 1, 0)
+            except ValueError as e:
+                print(e)
+            try:
+                datetime.date(1, 0, 1)
+            except ValueError as e:
+                print(e)
+            try:
+                datetime.date(0, 1, 1)
+            except ValueError as e:
+                print(e)
+            try:
+                datetime.date(0, 0, 0)
+            except ValueError as e:
+                print(e)
+            try:
+                datetime.date(10000, 1, 1)
+            except ValueError as e:
+                print(e)
+            try:
+                datetime.date("foo", 1, 1)
+            except TypeError as e:
+                print(e)
+            try:
+                datetime.date(1, "foo", 1)
+            except TypeError as e:
+                print(e)
+            try:
+                datetime.date(1, 1, "foo")
+            except TypeError as e:
+                print(e)
+        """)
+
+    def test_date_today(self):
+        self.assertCodeExecution("""
+            import datetime
+            print(datetime.date(2000, 1, 1).today())
+        """)
+
+    def test_date_min(self):
+        self.assertCodeExecution("""
+            import datetime
+            print(datetime.date(1999, 1, 20).min)
+            print(datetime.date(1, 1, 1).min)
+            print(datetime.date(9999, 12, 31).min)
+        """)
+
+    def test_date_max(self):
+        self.assertCodeExecution("""
+            import datetime
+            print(datetime.date(1999, 1, 20).max)
+            print(datetime.date(1, 1, 1).max)
+            print(datetime.date(9999, 12, 31).max)
+        """)
+
+    @expectedFailure
+    def test_date_resolution(self):
+        self.assertCodeExecution("""
+            import datetime
+            print(datetime.date(1999, 1, 1).resolution)
+        """)
+
+    def test_date_year(self):
+        self.assertCodeExecution("""
+            import datetime
+            print(datetime.date(1999, 1, 20).year)
+            print(datetime.date(1, 1, 1).year)
+            print(datetime.date(9999, 12, 31).year)
+
+        """)
+
+    def test_date_month(self):
+        self.assertCodeExecution("""
+            import datetime
+            print(datetime.date(1999, 1, 20).month)
+            print(datetime.date(1, 1, 1).month)
+            print(datetime.date(9999, 12, 31).month)
+        """)
+
+    def test_date_day(self):
+        self.assertCodeExecution("""
+            import datetime
+            print(datetime.date(1999, 1, 20).day)
+            print(datetime.date(1, 1, 1).day)
+            print(datetime.date(9999, 12, 31).day)
+        """)
+
+    def test_date_replace(self):
+        self.assertCodeExecution("""
+            import datetime
+            print(datetime.date(1999, 1, 1).replace(day=3))
+            print(datetime.date(1999, 1, 1).replace(month=3))
+            print(datetime.date(1999, 1, 1).replace(year=3))
+            print(datetime.date(1999, 1, 1).replace(day=3, month=3))
+            print(datetime.date(1999, 1, 1).replace(month=3, year=3))
+            print(datetime.date(1999, 1, 1).replace(day=3, year=3))
+            print(datetime.date(1999, 1, 1).replace(day=3, month=3, year=3))
+        """)
+
+    def test_date_replace_invalid(self):
+        self.assertCodeExecution("""
+            import datetime
+            try:
+                datetime.date(1, 1, 1).replace(day=0)
+            except ValueError as e:
+                print(e)
+            try:
+                datetime.date(1, 1, 1).replace(month=0)
+            except ValueError as e:
+                print(e)
+            try:
+                datetime.date(1, 1, 1).replace(year=0)
+            except ValueError as e:
+                print(e)
+            try:
+                datetime.date(9999, 12, 31).replace(day=32)
+            except ValueError as e:
+                print(e)
+            try:
+                datetime.date(9999, 12, 31).replace(month=13)
+            except ValueError as e:
+                print(e)
+            try:
+                datetime.date(9999, 12, 31).replace(year=10000)
+            except ValueError as e:
+                print(e)
+            try:
+                datetime.date(9999, 12, 31).replace(day=32, year=10000)
+            except ValueError as e:
+                print(e)
+            try:
+                datetime.date(9999, 12, 31).replace(day=32, month=13, year=10000)
+            except ValueError as e:
+                print(e)
+            try:
+                datetime.date(1, 1, 1).replace(day="foo")
+            except TypeError as e:
+                print(e)
+            try:
+                datetime.date(1, 1, 1).replace(month="foo")
+            except TypeError as e:
+                print(e)
+            try:
+                datetime.date(1, 1, 1).replace(year="foo")
+            except TypeError as e:
+                print(e)
+        """)
+
+    def test_date_replace_empty(self):
+        self.assertCodeExecution("""
+            import datetime
+            d = datetime.date(1999, 1, 1)
+            print(d.replace())
+            print(d is not d.replace())
+        """)
+
+    def test_date_weekday(self):
+        self.assertCodeExecution("""
+            import datetime
+            for i in range(9, 16):
+                print(datetime.date(2019, 9, i).weekday())
+            for i in range(24, 32):
+                print(datetime.date(9999, 12, i).weekday())
+        """)
+
     def test_timedelta_default_constructor(self):
         self.assertCodeExecution("""
             import datetime
