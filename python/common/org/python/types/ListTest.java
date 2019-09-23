@@ -94,6 +94,12 @@ public class ListTest {
     }
 
     @Test
+    public void __contains__emptyList() {
+        List l = new List();
+        assertFalse(l.__contains__(Int.getInt(1)).toBoolean());
+    }
+
+    @Test
     public void __contains__itemDoesntExist() {
         List l = createList(1, 2, 3, 4, 5);
 
@@ -125,6 +131,15 @@ public class ListTest {
     }
 
     @Test
+    public void __add__emptyList() {
+        List l = new List();
+        List m = new List();
+        List n = (List) l.__add__(m);
+
+        assertEquals(Int.getInt(0), l.__len__());
+    }
+
+    @Test
     public void __mul__integer() {
         List l = createList(1, 2, 3);
 
@@ -136,7 +151,7 @@ public class ListTest {
     }
 
     @Test
-    public void __mul__empty() {
+    public void __mul__emptyList() {
         List l = new List();
 
         List mul = (List) l.__mul__(Int.getInt(2));
@@ -175,7 +190,7 @@ public class ListTest {
     }
 
     @Test
-    public void __imul__empty() {
+    public void __imul__emptyList() {
         List l = new List();
 
         List mul = (List) l.__imul__(Int.getInt(2));
@@ -227,7 +242,7 @@ public class ListTest {
     }
 
     @Test
-    public void clear_empty() {
+    public void clear_emptyList() {
         List l = new List();
 
         assertEquals(Int.getInt(0), l.__len__());
@@ -257,6 +272,15 @@ public class ListTest {
     }
 
     @Test
+    public void copy_emptyList() {
+        List l = new List();
+        List lCopy = (List) l.copy();
+
+        assertEquals(Int.getInt(0), l.__len__());
+        assertEquals(Int.getInt(0), lCopy.__len__());
+    }
+
+    @Test
     public void count() {
         List l = new List();
         l.append(Int.getInt(1));
@@ -271,6 +295,22 @@ public class ListTest {
         assertEquals(Int.getInt(0), l.count(new Str("a non-existing string")));
     }
 
+    @Test
+    public void count_emptyList() {
+        List l = new List();
+        assertEquals(Int.getInt(0), l.count(new Str("a non-existing string")));
+    }
+
+    @Test
+    public void extend_emptyList() {
+        List l = new List();
+        l.append(Int.getInt(1));
+
+        List toExtend = new List();
+        l.extend(toExtend);
+
+        assertEquals(Int.getInt(1), l.__getitem__(Int.getInt(0)));
+    }
     @Test
     public void extend_list() {
         List l = new List();
@@ -558,11 +598,25 @@ public class ListTest {
     }
 
     @Test
+    public void reverse_emptyList() {
+        List l = new List();
+        l.reverse();
+        assertEquals(Int.getInt(0), l.__len__());
+    }
+
+    @Test
     public void reverse() {
         List l = createList(1, 2, 3, 4, 5);
         l.reverse();
 
         assertEquals(createList(5, 4, 3, 2, 1), l);
+    }
+
+    @Test
+    public void sort_emptyList() {
+        List l = new List();
+        l.sort(null, null);
+        assertEquals(Int.getInt(0), l.__len__());
     }
 
     @Test
