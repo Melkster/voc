@@ -20,3 +20,7 @@ profile_sort_large_list: compile profiling/SortLargeList.java
 profile_random_read_list: compile profiling/RandomReadsList.java
 	javac -cp "profiling:build/java" profiling/RandomReadsList.java
 	java -cp "profiling:build/java" RandomReadsList
+
+profile_concatenate_list: compile profiling/ConcatenateList.java
+	javac -cp "profiling:build/java" profiling/ConcatenateList.java
+	java -cp "profiling:build/java" ConcatenateList
