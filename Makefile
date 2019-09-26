@@ -16,3 +16,7 @@ coverage: compile
 profile_sum_numbers: compile profiling/SumNumbers.java
 	javac -cp "profiling:build/java" profiling/SumNumbers.java
 	java -cp "profiling:build/java" SumNumbers
+
+profile_insert_many: compile profiling/InsertMany.java
+	javac -cp "profiling:build/java" profiling/InsertMany.java
+	java -cp "profiling:build/java" InsertMany
