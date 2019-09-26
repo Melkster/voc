@@ -1,10 +1,10 @@
 
 import org.python.types.Int;
-import org.python.types.List;
 import org.python.types.Iterator;
+import org.python.types.List;
 
 public class SumNumbers {
-    private static final long LIST_SIZE = 20000000;
+    private static final long LIST_SIZE = 2000000;
 
     public static final void main(String[] args) {
 
