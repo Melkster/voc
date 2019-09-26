@@ -20,3 +20,7 @@ profile_sum_numbers: compile profiling/SumNumbers.java
 profile_insert_many: compile profiling/InsertMany.java
 	javac -cp "profiling:build/java" profiling/InsertMany.java
 	java -cp "profiling:build/java" InsertMany
+
+profile_random_removes: compile profiling/RandomRemovesList.java
+	javac -cp "profiling:build/java" profiling/RandomRemovesList.java
+	java -cp "profiling:build/java" RandomRemovesList
