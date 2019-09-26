@@ -1,13 +1,14 @@
 package org.python.types;
 
-import org.Python;
-
 import java.util.Collections;
 import java.util.Comparator;
+import org.Python;
+
 
 public class List extends org.python.types.Object {
     public java.util.List<org.python.Object> value;
 
+    @Override
     public java.lang.Object toJava() {
         return this.value;
     }
@@ -28,7 +29,7 @@ public class List extends org.python.types.Object {
 
     public List() {
         super();
-        this.value = new java.util.ArrayList<org.python.Object>();
+        this.value = new java.util.LinkedList<org.python.Object>();
     }
 
     public List(java.util.List<org.python.Object> list) {
@@ -44,23 +45,23 @@ public class List extends org.python.types.Object {
     public List(org.python.Object[] args, java.util.Map<java.lang.String, org.python.Object> kwargs) {
         super();
         if (args[0] == null) {
-            this.value = new java.util.ArrayList<org.python.Object>();
+            this.value = new java.util.LinkedList<org.python.Object>();
         } else if (args.length == 1) {
             if (args[0] instanceof org.python.types.List) {
-                this.value = new java.util.ArrayList<org.python.Object>(
+                this.value = new java.util.LinkedList<org.python.Object>(
                         ((org.python.types.List) args[0]).value
                 );
             } else if (args[0] instanceof org.python.types.Set) {
-                this.value = new java.util.ArrayList<org.python.Object>(
+                this.value = new java.util.LinkedList<org.python.Object>(
                         ((org.python.types.Set) args[0]).value
                 );
             } else if (args[0] instanceof org.python.types.Tuple) {
-                this.value = new java.util.ArrayList<org.python.Object>(
+                this.value = new java.util.LinkedList<org.python.Object>(
                         ((org.python.types.Tuple) args[0]).value
                 );
             } else {
                 org.python.Object iterator = org.Python.iter(args[0]);
-                java.util.List<org.python.Object> generated = new java.util.ArrayList<org.python.Object>();
+                java.util.List<org.python.Object> generated = new java.util.LinkedList<org.python.Object>();
                 try {
                     while (true) {
                         org.python.Object next = iterator.__next__();
@@ -85,6 +86,7 @@ public class List extends org.python.types.Object {
     //     throw new org.python.exceptions.NotImplementedError("list.__init__() has not been implemented.");
     // }
 
+    @Override
     @org.python.Method(
             __doc__ = "Implement self+=value.",
             args = {"other"}
@@ -130,6 +132,7 @@ public class List extends org.python.types.Object {
         return this;
     }
 
+    @Override
     @org.python.Method(
             __doc__ = ""
     )
@@ -137,6 +140,7 @@ public class List extends org.python.types.Object {
         return org.python.types.Bool.getBool(!this.value.isEmpty());
     }
 
+    @Override
     @org.python.Method(
             __doc__ = "Return repr(self)."
     )
@@ -162,6 +166,7 @@ public class List extends org.python.types.Object {
         throw new org.python.exceptions.NotImplementedError("list.__format__() has not been implemented.");
     }
 
+    @Override
     @org.python.Method(
             __doc__ = "Return self<value.",
             args = {"other"}
@@ -195,6 +200,7 @@ public class List extends org.python.types.Object {
         }
     }
 
+    @Override
     @org.python.Method(
             __doc__ = "Return self<=value.",
             args = {"other"}
@@ -228,6 +234,7 @@ public class List extends org.python.types.Object {
         }
     }
 
+    @Override
     @org.python.Method(
             __doc__ = "Return self==value.",
             args = {"other"}
@@ -240,6 +247,7 @@ public class List extends org.python.types.Object {
         return org.python.types.NotImplementedType.NOT_IMPLEMENTED;
     }
 
+    @Override
     @org.python.Method(
             __doc__ = "Return self>value.",
             args = {"other"}
@@ -273,6 +281,7 @@ public class List extends org.python.types.Object {
         }
     }
 
+    @Override
     @org.python.Method(
             __doc__ = "Return self>=value.",
             args = {"other"}
@@ -306,11 +315,13 @@ public class List extends org.python.types.Object {
         }
     }
 
+    @Override
     public boolean __setattr_null(java.lang.String name, org.python.Object value) {
         // Builtin types can't have attributes set on them.
         return false;
     }
 
+    @Override
     @org.python.Method(
             __doc__ = "Return len(self)."
     )
@@ -318,6 +329,7 @@ public class List extends org.python.types.Object {
         return org.python.types.Int.getInt(this.value.size());
     }
 
+    @Override
     @org.python.Method(
             __doc__ = "x.__getitem__(y) <==> x[y]",
             args = {"index"}
@@ -326,7 +338,7 @@ public class List extends org.python.types.Object {
         try {
             if (index instanceof org.python.types.Slice) {
                 org.python.types.Slice.ValidatedValue slice = ((org.python.types.Slice) index).validateValueTypes();
-                java.util.List<org.python.Object> sliced = new java.util.ArrayList<org.python.Object>();
+                java.util.List<org.python.Object> sliced = new java.util.LinkedList<org.python.Object>();
 
                 if (slice.start == null && slice.stop == null && slice.step == null) {
                     sliced.addAll(this.value);
@@ -426,6 +438,7 @@ public class List extends org.python.types.Object {
     }
 
 
+    @Override
     @org.python.Method(
             __doc__ = "Set self[key] to value.",
             args = {"index", "value"}
@@ -465,6 +478,7 @@ public class List extends org.python.types.Object {
         }
     }
 
+    @Override
     @org.python.Method(
             __doc__ = "Delete self[key].",
             args = {"index"}
@@ -503,6 +517,7 @@ public class List extends org.python.types.Object {
         }
     }
 
+    @Override
     @org.python.Method(
             __doc__ = "Implement iter(self)."
     )
@@ -510,6 +525,7 @@ public class List extends org.python.types.Object {
         return new org.python.types.List_Iterator(this);
     }
 
+    @Override
     @org.python.Method(
             __doc__ = "Reverse the list in place and returns\n" +
                       "an iterator that iterates over all the objects\n" +
@@ -520,6 +536,7 @@ public class List extends org.python.types.Object {
         return new org.python.types.List_ReverseIterator(this);
     }
 
+    @Override
     @org.python.Method(
             __doc__ = "Return key in self.",
             args = {"item"}
@@ -536,6 +553,7 @@ public class List extends org.python.types.Object {
         return org.python.types.Bool.getBool(found);
     }
 
+    @Override
     @org.python.Method(
             __doc__ = "Return self+value.",
             args = {"other"}
@@ -552,6 +570,7 @@ public class List extends org.python.types.Object {
         }
     }
 
+    @Override
     @org.python.Method(
             __doc__ = "Return self*value.n",
             args = {"other"}
@@ -575,6 +594,7 @@ public class List extends org.python.types.Object {
         throw new org.python.exceptions.TypeError("can't multiply sequence by non-int of type '" + other.typeName() + "'");
     }
 
+    @Override
     @org.python.Method(
             __doc__ = "Implement self*=value.",
             args = {"other"}
@@ -599,6 +619,7 @@ public class List extends org.python.types.Object {
         }
     }
 
+    @Override
     @org.python.Method(
             __doc__ = "Return self*value.",
             args = {"other"}
@@ -628,7 +649,7 @@ public class List extends org.python.types.Object {
             __doc__ = "L.copy() -> list -- a shallow copy of L"
     )
     public org.python.Object copy() {
-        return new org.python.types.List(new java.util.ArrayList<org.python.Object>(this.value));
+        return new org.python.types.List(new java.util.LinkedList<org.python.Object>(this.value));
     }
 
     @org.python.Method(
@@ -838,6 +859,7 @@ public class List extends org.python.types.Object {
         return org.python.types.NoneType.NONE;
     }
 
+    @Override
     @org.python.Method(
             __doc__ = ""
     )
