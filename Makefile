@@ -16,3 +16,7 @@ coverage: compile
 profile_sort_large_list: compile profiling/SortLargeList.java
 	javac -cp "profiling:build/java" profiling/SortLargeList.java
 	java -cp "profiling:build/java" SortLargeList
+
+profile_random_read_list: compile profiling/RandomReadsList.java
+	javac -cp "profiling:build/java" profiling/RandomReadsList.java
+	java -cp "profiling:build/java" RandomReadsList
